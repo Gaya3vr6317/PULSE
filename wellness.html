@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Management Techniques</title>
+    <style>
+        :root {
+            --primary-color: #5b86e5;
+            --secondary-color: #36d1dc;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --accent-color: #ff6b6b;
+            --box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            min-height: 100vh;
+        }
+        
+        header {
+            background-color: white;
+            padding: 20px 0;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .hero {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(91, 134, 229, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(91, 134, 229, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+        
+        .stress-levels {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .stress-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .stress-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-header {
+            padding: 15px 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .minimal {
+            background-color: var(--success-color);
+        }
+        
+        .mild {
+            background-color: var(--secondary-color);
+        }
+        
+        .moderate {
+            background-color: var(--warning-color);
+        }
+        
+        .high {
+            background-color: var(--danger-color);
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .technique {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .technique:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .technique h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        
+        .technique p {
+            line-height: 1.5;
+        }
+        
+        .resources {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .resources h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .resource-link {
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .resource-link:hover {
+            background-color: #e9e9e9;
+            transform: translateY(-3px);
+        }
+        
+        .resource-link h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+        
+        .resource-link p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+        }
+        
+        .tool-section {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .stress-tracker {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .mood-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        
+        .mood-btn {
+            border: none;
+            background: none;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            padding: 10px;
+        }
+        
+        .mood-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .journal-entry {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            min-height: 100px;
+            font-family: inherit;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        footer p {
+            margin: 0;
+            color: #666;
+        }
+        
+        /* Interactive elements */
+        .collapsible {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            position: relative;
+            font-weight: bold;
+        }
+        
+        .collapsible:after {
+            content: '\002B';
+            color: var(--primary-color);
+            font-weight: bold;
+            float: right;
+        }
+        
+        .active:after {
+            content: "\2212";
+        }
+        
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: white;
+            border-radius: 0 0 10px 10px;
+            margin-bottom: 15px;
+        }
+        
+        .breathing-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .breathing-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 8s ease;
+        }
+        
+        .breathing-text {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .assessment-results {
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            display: none;
+        }
+        
+        .stress-level-highlight {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .journal-list {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .journal-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+            margin-bottom: 10px;
+        }
+
+        .journal-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .journal-date {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .success-message {
+            background-color: var(--success-color);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .nav-links {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .mood-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .mood-btn {
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">MindWell</a>
+            <div class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#techniques">Techniques</a>
+                <a href="#resources">Resources</a>
+                <a href="#tools">Tools</a>
+                <a href="index.html">Assessment</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="hero">
+            <h1>Personalized Stress Management</h1>
+            <p>Welcome to your stress management center. Based on your stress assessment results, we've curated specific techniques and resources to help you manage and reduce your stress levels effectively.</p>
+            <a href="#" class="btn" id="showAssessment">Take Assessment</a>
+            <a href="#techniques" class="btn btn-secondary">View Techniques</a>
+            
+            <!-- Assessment Results Section (Hidden by default) -->
+            <div class="assessment-results" id="assessmentResults">
+                <h3>Your Stress Assessment Results</h3>
+                <p>Your current stress level: <span class="stress-level-highlight" id="stressLevelText">Moderate</span></p>
+                <p>Score: <span class="stress-level-highlight" id="stressScore">18</span>/25</p>
+                <p id="stressRecommendation">Based on your results, we recommend focusing on the techniques in the Moderate Stress section below.</p>
+            </div>
+        </section>
+        
+        <section id="techniques">
+            <h2 style="color: var(--primary-color); text-align: center; margin-bottom: 30px;">Stress Management Techniques</h2>
+            
+            <div class="stress-levels">
+                <!-- Minimal Stress Level Card -->
+                <div class="stress-card">
+                    <div class="card-header minimal">Minimal Stress (5-10)</div>
+                    <div class="card-body">
+                        <div class="technique">
+                            <h3>Maintenance Meditation</h3>
+                            <p>Continue your wellness journey with a daily 5-minute meditation to maintain your mental clarity and emotional balance.</p>
+                        </div>
+                        <div class="technique">
+                            <h3>Gratitude Journaling</h3>
+                            <p>Write down three things you're grateful for each day to reinforce positive thinking patterns.</p>
+                        </div>
+                        <div class="technique">
+                            <h3>Regular Exercise</h3>
+                            <p>Maintain your current exercise routine to keep stress levels low and energy levels high.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mild Stress Level Card -->
+                <div class="stress-card">
+                    <div class="card-header mild">Mild Stress (11-15)</div>
+                    <div class="card-body">
+                        <div class="technique">
+                            <h3>Deep Breathing Exercises</h3>
+                            <p>Practice 4-7-8 breathing: inhale for 4 seconds, hold for 7 seconds, exhale for 8 seconds. Repeat 5 times when feeling stressed.</p>
+                        </div>
+                        <div class="technique">
+                            <h3>Digital Detox</h3>
+                            <p>Set aside 1-2 hours per day free from digital devices to reset your mind and reduce information overload.</p>
+                        </div>
+                        <div class="technique">
+                            <h3>Nature Walks</h3>
+                            <p>Spend 20 minutes walking outdoors daily to benefit from the calming effects of nature.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Moderate Stress Level Card -->
+                <div class="stress-card">
+                    <div class="card-header moderate">Moderate Stress (16-20)</div>
+                    <div class="card-body">
+                        <div class="technique">
+                            <h3>Progressive Muscle Relaxation</h3>
+                            <p>Tense and then release each muscle group in your body to reduce physical tension associated with stress.</p>
+                        </div>
+                        <div class="technique">
+                            <h3>Stress Journaling</h3>
+                            <p>Document your stressors, their impact, and potential solutions to gain clarity and control over your situation.</p>
+                        </div>
+                        <div class="technique">
+                            <h3>Time Management</h3>
+                            <p>Use prioritization techniques and break tasks into smaller, manageable pieces to reduce overwhelming feelings.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- High Stress Level Card -->
+                <div class="stress-card">
+                    <div class="card-header high">High Stress (21-25)</div>
+                    <div class="card-body">
+                        <div class="technique">
+                            <h3>Professional Support</h3>
+                            <p>Consider speaking with a mental health professional who can provide personalized strategies and support.</p>
+                        </div>
+                        <div class="technique">
+                            <h3>Boundary Setting</h3>
+                            <p>Learn to say "no" to additional responsibilities and create clear boundaries between work and personal life.</p>
+                        </div>
+                        <div class="technique">
+                            <h3>Mind-Body Techniques</h3>
+                            <p>Explore yoga, tai chi, or other mind-body practices that combine physical movement with mental focus.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="tool-section" id="tools">
+            <h2 style="color: var(--primary-color);">Interactive Tools</h2>
+            
+            <!-- Breathing Exercise Tool -->
+            <div style="margin: 30px 0;">
+                <h3>Guided Breathing Exercise</h3>
+                <p>Follow along with this simple breathing exercise to instantly reduce stress.</p>
+                
+                <div class="breathing-container">
+                    <div class="breathing-circle" id="breathingCircle">
+                        <span class="breathing-text" id="breathingText">Breathe In</span>
+                    </div>
+                    <button class="btn" id="startBreathing" style="margin-top: 20px;">Start Breathing Exercise</button>
+                </div>
+            </div>
+            
+            <!-- Daily Mood Tracker -->
+            <div style="margin: 40px 0;">
+                <h3>Daily Stress Journal</h3>
+                <p>Track your stress levels and record thoughts to identify patterns and triggers.</p>
+                
+                <div class="stress-tracker">
+                    <h4>How are you feeling today?</h4>
+                    <div class="mood-buttons">
+                        <button class="mood-btn" data-mood="1">😫</button>
+                        <button class="mood-btn" data-mood="2">😟</button>
+                        <button class="mood-btn" data-mood="3">😐</button>
+                        <button class="mood-btn" data-mood="4">🙂</button>
+                        <button class="mood-btn" data-mood="5">😁</button>
+                    </div>
+                    
+                    <h4>Journal Entry</h4>
+                    <textarea class="journal-entry" placeholder="Write about your stressors, thoughts, and feelings today..."></textarea>
+                    
+                    <button class="btn" id="saveJournal">Save Entry</button>
+                    <div id="successMessage" class="success-message">Journal entry saved successfully!</div>
+
+                    <div class="journal-list" id="journalList">
+                        <h4>Recent Journal Entries</h4>
+                        <div id="journalEntries">
+                            <!-- Journal entries will be displayed here -->
+                            <p id="noEntries">No journal entries yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stress Management Tips -->
+            <div style="margin: 40px 0;">
+                <h3>Quick Stress Relief Techniques</h3>
+                <p>Expand each section to learn quick techniques you can use anywhere.</p>
+                
+                <button class="collapsible">5-Second Grounding Technique</button>
+                <div class="content">
+                    <p>When stress hits suddenly, use the 5-4-3-2-1 technique: Acknowledge 5 things you can see, 4 things you can touch, 3 things you can hear, 2 things you can smell, and 1 thing you can taste.</p>
+                </div>
+                
+                <button class="collapsible">Quick Tension Release</button>
+                <div class="content">
+                    <p>Tense your shoulders up to your ears for 5 seconds, then release completely. Repeat 3 times to quickly release upper body tension that accumulates during stress.</p>
+                </div>
+                
+                <button class="collapsible">Mental Reset Visualization</button>
+                <div class="content">
+                    <p>Take 30 seconds to close your eyes and visualize stress flowing out of your body like water. Imagine yourself in a peaceful place, like a beach or forest, where your mind can rest momentarily.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="resources" id="resources">
+            <h2>Helpful Resources</h2>
+            <p>Explore these additional resources for more support in managing your stress and improving your mental wellbeing.</p>
+            
+            <div class="resource-links">
+                <a href="https://www.nimh.nih.gov/health/topics/stress" class="resource-link" target="_blank">
+                    <h3>National Institute of Mental Health</h3>
+                    <p>Research-based information about stress and mental health.</p>
+                </a>
+                
+                <a href="https://www.headspace.com" class="resource-link" target="_blank">
+                    <h3>Headspace</h3>
+                    <p>Guided meditation and mindfulness exercises for stress reduction.</p>
+                </a>
+                
+                <a href="https://www.calm.com" class="resource-link" target="_blank">
+                    <h3>Calm</h3>
+                    <p>Sleep stories, meditation, and relaxation techniques.</p>
+                </a>
+                
+                <a href="https://www.psychologytoday.com/us/therapists" class="resource-link" target="_blank">
+                    <h3>Psychology Today Therapist Directory</h3>
+                    <p>Find mental health professionals in your area.</p>
+                </a>
+                
+                <a href="https://www.apa.org/topics/stress" class="resource-link" target="_blank">
+                    <h3>American Psychological Association</h3>
+                    <p>Professional resources and articles about stress management.</p>
+                </a>
+                
+                <a href="https://www.health.harvard.edu/topics/stress" class="resource-link" target="_blank">
+                    <h3>Harvard Health</h3>
+                    <p>Evidence-based health information about stress and its effects.</p>
+                </a>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2025 MindWell. All rights reserved. | <a href="#" style="color: var(--primary-color);">Privacy Policy</a> | <a href="#" style="color: var(--primary-color);">Contact Us</a></p>
+    </footer>
+
+    <script>
+        // Breathing Exercise Animation
+        const breathingCircle = document.getElementById('breathingCircle');
+        const breathingText = document.getElementById('breathingText');
+        const startBreathingBtn = document.getElementById('startBreathing');
+        
+        let breathingInterval;
+        let breathingState = 'idle';
+        
+        startBreathingBtn.addEventListener('click', function() {
+            if (breathingState === 'idle') {
+                startBreathingExercise();
+                startBreathingBtn.textContent = 'Stop Exercise';
+                breathingState = 'active';
+            } else {
+                stopBreathingExercise();
+                startBreathingBtn.textContent = 'Start Breathing Exercise';
+                breathingState = 'idle';
+            }
+        });
+        
+        function startBreathingExercise() {
+            breathCycle();
+            breathingInterval = setInterval(breathCycle, 8000); // Complete cycle every 8 seconds
+        }
+        
+        function stopBreathingExercise() {
+            clearInterval(breathingInterval);
+            breathingCircle.style.transform = 'scale(1)';
+            breathingText.textContent = 'Breathe In';
+        }
+        
+        function breathCycle() {
+            // Inhale
+            breathingText.textContent = 'Breathe In';
+            breathingCircle.style.transform = 'scale(1.5)';
+            
+            // Hold
+            setTimeout(() => {
+                breathingText.textContent = 'Hold';
+            }, 4000);
+            
+            // Exhale
+            setTimeout(() => {
+                breathingText.textContent = 'Breathe Out';
+                breathingCircle.style.transform = 'scale(1)';
+            }, 5500);
+        }
+        
+        // Mood Tracker
+        const moodButtons = document.querySelectorAll('.mood-btn');
+        const journalText = document.querySelector('.journal-entry');
+        const saveJournalBtn = document.getElementById('saveJournal');
+        const successMessage = document.getElementById('successMessage');
+        const journalEntriesContainer = document.getElementById('journalEntries');
+        const noEntriesMessage = document.getElementById('noEntries');
+        
+        let selectedMood = null;
+        
+        moodButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                moodButtons.forEach(btn => btn.style.opacity = '0.5');
+                this.style.opacity = '1';
+                selectedMood = this.getAttribute('data-mood');
+            });
+        });
+        
+        // Load journal entries when page loads
+        document.addEventListener('DOMContentLoaded', loadJournalEntries);
+        
+        saveJournalBtn.addEventListener('click', function() {
+            if (selectedMood && journalText.value.trim() !== '') {
+                const journalEntry = {
+                    date: new Date().toLocaleDateString(),
+                    mood: selectedMood,
+                    text: journalText.value,
+                    timestamp: new Date().getTime()
+                };
+                
+                // Save to local storage
+                let journalEntries = JSON.parse(localStorage.getItem('stressJournal') || '[]');
+                journalEntries.push(journalEntry);
+                localStorage.setItem('stressJournal', JSON.stringify(journalEntries));
+                
+                // Show success message
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+                
+                // Reset form
+                journalText.value = '';
+                moodButtons.forEach(btn => btn.style.opacity = '1');
+                selectedMood = null;
+                
+                // Reload journal entries
+                loadJournalEntries();
+            } else {
+                alert('Please select a mood and write a journal entry.');
+            }
+        });
+        
+        function loadJournalEntries() {
+            const journalEntries = JSON.parse(localStorage.getItem('stressJournal') || '[]');
+            
+            if (journalEntries.length > 0) {
+                noEntriesMessage.style.display = 'none';
+                
+                // Clear existing entries
+                journalEntriesContainer.innerHTML = '';
+                noEntriesMessage.style.display = 'none';
+                
+                // Sort entries by timestamp (newest first)
+                journalEntries.sort((a, b) => b.timestamp - a.timestamp);
+                
+                // Display the latest 5 entries
+                const latestEntries = journalEntries.slice(0, 5);
+                
+                latestEntries.forEach(entry => {
+                    const entryElement = document.createElement('div');
+                    entryElement.className = 'journal-item';
+                    
+                    const moodEmoji = getMoodEmoji(entry.mood);
+                    
+                    entryElement.innerHTML = `
+                        <div class="journal-date">${entry.date} ${moodEmoji}</div>
+                        <p>${entry.text}</p>
+                    `;
+                    
+                    journalEntriesContainer.appendChild(entryElement);
+                });
+            } else {
+                noEntriesMessage.style.display = 'block';
+            }
+        }
+        
+        function getMoodEmoji(mood) {
+            const emojis = {
+                '1': '😫',
+                '2': '😟',
+                '3': '😐',
+                '4': '🙂',
+                '5': '😁'
+            };
+            
+            return emojis[mood] || '';
+        }
+        
+        // Collapsible sections
+        const collapsibles = document.querySelectorAll('.collapsible');
+        
+        collapsibles.forEach(collapsible => {
+            collapsible.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                }
+            });
+        });
+        
+        // Show assessment results
+        const showAssessmentBtn = document.getElementById('showAssessment');
+        const assessmentResults = document.getElementById('assessmentResults');
+        
+        showAssessmentBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Toggle assessment results
+            if (assessmentResults.style.display === 'block') {
+                assessmentResults.style.display = 'none';
+            } else {
+                assessmentResults.style.display = 'block';
+                
+                // Simulate an assessment result - in a real app, this would come from actual assessment
+                const randomScore = Math.floor(Math.random() * 21) + 5; // Random score between 5-25
+                document.getElementById('stressScore').textContent = randomScore;
+                
+                let stressLevel;
+                let recommendation;
+                
+                if (randomScore <= 10) {
+                    stressLevel = 'Minimal';
+                    recommendation = 'Based on your results, we recommend focusing on the techniques in the Minimal Stress section to maintain your current well-being.';
+                } else if (randomScore <= 15) {
+                    stressLevel = 'Mild';
+                    recommendation = 'Based on your results, we recommend focusing on the techniques in the Mild Stress section to reduce your stress levels.';
+                } else if (randomScore <= 20) {
+                    stressLevel = 'Moderate';
+                    recommendation = 'Based on your results, we recommend focusing on the techniques in the Moderate Stress section to address your stress effectively.

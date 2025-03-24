@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PULSE - PCOD Cycle Tracking Calendar</title>
+    <title>PCOD Wellness Hub - Calendar</title>
     <style>
         :root {
-            --primary: #8e44ad;
-            --primary-light: #9b59b6;
-            --primary-dark: #7d3c98;
-            --secondary: #e8daef;
-            --accent: #d35400;
-            --text: #333;
-            --light: #f9f9f9;
-            --error: #e74c3c;
+            --primary: #cd5c5c;
+            --primary-light: #cd5c5c;
+            --secondary: #3498db;
+            --light: #f8f9fa;
+            --dark: #343a40;
             --success: #2ecc71;
             --warning: #f39c12;
-            --period: #e74c3c;
-            --ovulation: #3498db;
-            --fertile: #f1c40f;
-            --symptom: #9b59b6;
+            --danger: #e74c3c;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
         }
         
         * {
@@ -31,703 +27,930 @@
         
         body {
             background-color: #f5f5f5;
-            color: var(--text);
-            line-height: 1.6;
+            color: var(--dark);
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 15px;
         }
         
         header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 0;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 30px;
         }
         
         .logo {
-            font-size: 24px;
-            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #cd5c5c;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #cd5c5c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #cd5c5c;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            background-color: var(--gray-light);
             color: var(--primary);
+        }
+        
+        .nav-links a.active {
+            background-color: #cd5c5c;
+            color: white;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--gray-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+        }
+        
+        .notification-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        main {
+            padding: 30px 0;
         }
         
         .page-title {
-            font-size: 28px;
             margin-bottom: 20px;
-            color: var(--primary);
+            font-size: 1.8rem;
+            color: #cd5c5c;
         }
         
-        .dashboard {
-            display: grid;
-            grid-template-columns: 7fr 3fr;
-            gap: 30px;
-        }
-        
-        @media (max-width: 768px) {
-            .dashboard {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .card {
-            background: white;
+        .calendar-container {
+            background-color: white;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            padding: 25px;
-            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
         
-        .card-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 15px;
+        .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px;
+            background-color: #cd5c5c;
+            color: white;
+        }
+        
+        .calendar-title {
+            font-size: 1.5rem;
+            font-weight: 600;
         }
         
         .calendar-nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            gap: 10px;
         }
         
-        .month-indicator {
-            font-size: 20px;
-            font-weight: 600;
-        }
-        
-        .nav-btn {
-            background: var(--primary-light);
+        .calendar-nav button {
+            background-color: transparent;
+            border: 1px solid white;
             color: white;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 8px 15px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
         }
         
-        .nav-btn:hover {
-            background: var(--primary-dark);
+        .calendar-nav button:hover {
+            background-color: white;
+            color: var(--primary);
         }
         
-        .calendar {
-            width: 100%;
-            border-collapse: collapse;
+        .calendar-grid {
+            padding: 20px;
         }
         
-        .calendar th {
-            padding: 10px;
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
             text-align: center;
             font-weight: 600;
-            color: #666;
+            color: var(--gray);
+            margin-bottom: 10px;
         }
         
-        .calendar td {
-            padding: 0;
-            text-align: center;
-            position: relative;
+        .weekday {
+            padding: 10px;
         }
         
-        .calendar .day {
-            height: 70px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
+        .dates {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        
+        .date-cell {
+            border: 1px solid var(--gray-light);
+            min-height: 100px;
+            border-radius: 4px;
             padding: 5px;
             position: relative;
-            cursor: pointer;
-            transition: background 0.2s;
         }
         
-        .calendar .day:hover {
-            background: #f5f5f5;
+        .date-number {
+            position: absolute;
+            top: 5px;
+            right: 8px;
+            font-size: 0.9rem;
+            color: var(--gray);
         }
         
-        .calendar .day-number {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 5px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .calendar .inactive {
-            color: #aaa;
-        }
-        
-        .calendar .today .day-number {
-            background: var(--primary);
+        .date-cell.today {
+            border-color: indianred;
+            background-color: #f2454580;
             color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
+        }
+        
+        .date-cell.today .date-number {
+            color: white;
+            font-weight: 600;
+        }
+        
+        .date-cell.inactive {
+            background-color: var(--gray-light);
+            opacity: 0.5;
+        }
+        
+        .date-content {
+            margin-top: 25px;
+        }
+        
+        .event {
+            margin-bottom: 5px;
+            padding: 4px 6px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+        
+        .event.period {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .event.symptom {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .event.appointment {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .event.medication {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .event.mental-health {
+            background-color: #CD5C5C;
+            color: white;
+        }
+        
+        .event.exercise {
+            background-color: #1abc9c;
+            color: white;
+        }
+        
+        .tools-panel {
             display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .event-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            margin: 2px;
-        }
-        
-        .period-day {
-            background-color: rgba(231, 76, 60, 0.2);
-        }
-        
-        .period-indicator {
-            background-color: var(--period);
-        }
-        
-        .ovulation-indicator {
-            background-color: var(--ovulation);
-        }
-        
-        .fertile-indicator {
-            background-color: var(--fertile);
-        }
-        
-        .symptom-indicator {
-            background-color: var(--symptom);
-        }
-        
-        .predicted-period {
-            border: 2px dashed var(--period);
-        }
-        
-        .legend {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-        }
-        
-        /* Sidebar */
-        .upcoming-events {
+            gap: 10px;
             margin-bottom: 20px;
         }
         
-        .event-list {
-            list-style: none;
+        .tool-button {
+            padding: 10px 15px;
+            background-color: white;
+            border: 1px solid var(--gray-light);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        .event-item {
-            padding: 15px;
-            border-left: 3px solid var(--primary);
-            background: #f9f9f9;
-            margin-bottom: 10px;
-            border-radius: 0 5px 5px 0;
+        .tool-button:hover {
+            background-color: var(--gray-light);
         }
         
-        .event-date {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
+        .tool-button.active {
+            background-color: #cd5c5c;
+            color: white;
+            border-color: #cd5c5c;
         }
         
-        .event-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .event-description {
-            font-size: 14px;
-            color: #666;
-        }
-        
-        .period-alert {
-            background-color: rgba(231, 76, 60, 0.1);
-            border-left: 3px solid var(--period);
-        }
-        
-        .ovulation-alert {
-            background-color: rgba(52, 152, 219, 0.1);
-            border-left: 3px solid var(--ovulation);
-        }
-        
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
-            z-index: 100;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
         
         .modal-content {
             background-color: white;
-            margin: 10% auto;
-            padding: 25px;
             border-radius: 10px;
             width: 90%;
             max-width: 500px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            position: relative;
-            animation: modalopen 0.3s;
+            overflow: hidden;
         }
         
-        @keyframes modalopen {
-            from {opacity: 0; transform: translateY(-20px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
-        
-        .close-modal {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #aaa;
-        }
-        
-        .close-modal:hover {
-            color: var(--text);
+        .modal-header {
+            padding: 15px 20px;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .modal-title {
-            font-size: 20px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .modal-body {
+            padding: 20px;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
-        .form-group label {
+        .form-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: 500;
         }
         
         .form-control {
             width: 100%;
             padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            font-size: 1rem;
         }
         
-        .symptom-checkboxes {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
         }
         
-        .checkbox-item {
+        .event-type-selector {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
         }
         
-        .checkbox-item input {
-            margin-right: 8px;
+        .event-type-option {
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .event-type-option.period {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        
+        .event-type-option.period.active {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .event-type-option.symptom {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .event-type-option.symptom.active {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .event-type-option.appointment {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .event-type-option.appointment.active {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .event-type-option.medication {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .event-type-option.medication.active {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .event-type-option.mental-health {
+            background-color: #e8daef;
+            color: #CD5C5C;
+        }
+        
+        .event-type-option.mental-health.active {
+            background-color: #CD5C5C;
+            color: white;
+        }
+        
+        .event-type-option.exercise {
+            background-color: #d1f2eb;
+            color: #0e6251;
+        }
+        
+        .event-type-option.exercise.active {
+            background-color: #1abc9c;
+            color: white;
         }
         
         .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
             background-color: var(--primary);
             color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            transition: background 0.3s;
         }
         
-        .btn:hover {
-            background-color: var(--primary-dark);
+        .btn-primary:hover {
+            background-color: var(--primary-light);
         }
         
-        .btn-block {
-            display: block;
-            width: 100%;
+        .btn-secondary {
+            background-color: var(--gray-light);
+            color: var(--dark);
         }
         
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: white;
-            border-left: 4px solid var(--primary);
+        .btn-secondary:hover {
+            background-color: var(--gray);
+            color: white;
+        }
+        
+        .modal-footer {
             padding: 15px 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            border-radius: 4px;
-            z-index: 1000;
-            transform: translateX(120%);
-            transition: transform 0.3s ease-out;
-            max-width: 350px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid var(--gray-light);
         }
         
-        .notification.show {
-            transform: translateX(0);
+        .calendar-views {
+            display: flex;
+            gap: 10px;
         }
         
-        .notification-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .notification-message {
-            font-size: 14px;
-            color: #555;
-        }
-        
-        /* Stats Summary */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        
-        .stat-card {
+        .calendar-view-btn {
             background-color: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            text-align: center;
+            border: 1px solid var(--gray-light);
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
         
-        .stat-value {
-            font-size: 24px;
+        .calendar-view-btn:hover {
+            background-color: var(--gray-light);
+        }
+        
+        .calendar-view-btn.active {
+            background-color: #cd5c5c;
+            color: white;
+            border-color: #cd5c5c;
+        }
+        
+        .sidebar {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .sidebar-title {
+            font-size: 1.2rem;
             font-weight: 600;
+            margin-bottom: 15px;
             color: var(--primary);
-            margin-bottom: 5px;
         }
         
-        .stat-label {
-            font-size: 14px;
-            color: #666;
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+        
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+        }
+        
+        @media (max-width: 768px) {
+            .weekday {
+                font-size: 0.8rem;
+            }
+            
+            .date-cell {
+                min-height: 80px;
+            }
+            
+            .event {
+                font-size: 0.7rem;
+            }
+            
+            .calendar-title {
+                font-size: 1.2rem;
+            }
+            
+            .tool-button {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">PULSE</div>
-            <div>
-                <span id="notification-bell" style="cursor:pointer; font-size: 24px;">🔔</span>
-            </div>
-        </header>
-        
-        <h1 class="page-title">PCOD Cycle Tracker</h1>
-        
-        <div class="dashboard">
-            <div class="main-content">
-                <div class="card">
-                    <div class="calendar-nav">
-                        <button id="prev-month" class="nav-btn">&lt;</button>
-                        <div class="month-indicator" id="month-display">September 2024</div>
-                        <button id="next-month" class="nav-btn">&gt;</button>
-                    </div>
-                    
-                    <table class="calendar" id="calendar-table">
-                        <thead>
-                            <tr>
-                                <th>Sun</th>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th>Fri</th>
-                                <th>Sat</th>
-                            </tr>
-                        </thead>
-                        <tbody id="calendar-body">
-                            <!-- Calendar days will be inserted here by JavaScript -->
-                        </tbody>
-                    </table>
-                    
-                    <div class="legend">
-                        <div class="legend-item">
-                            <span class="event-indicator period-indicator"></span>
-                            <span>Period</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="event-indicator ovulation-indicator"></span>
-                            <span>Ovulation</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="event-indicator fertile-indicator"></span>
-                            <span>Fertile Window</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="event-indicator symptom-indicator"></span>
-                            <span>Symptoms</span>
-                        </div>
-                    </div>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <div class="logo-icon">P</div>
+                    <span>PULSE</span>
                 </div>
-                
-                <div class="card">
-                    <div class="card-title">
-                        <span>Cycle Summary</span>
-                    </div>
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-value" id="avg-cycle-length">32</div>
-                            <div class="stat-label">Avg. Cycle Length</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="avg-period-length">7</div>
-                            <div class="stat-label">Avg. Period Duration</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="next-period">14</div>
-                            <div class="stat-label">Days Until Next Period</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value" id="cycle-regularity">Medium</div>
-                            <div class="stat-label">Cycle Regularity</div>
-                        </div>
-                    </div>
+                <div class="nav-links">
+                    <a href="#">Dashboard</a>
+                    <a href="#" class="active">Calendar</a>
+                    <a href="#">Symptoms</a>
+                    <a href="#">Mental Health</a>
+                    <a href="#">Resources</a>
                 </div>
-            </div>
-            
-            <div class="sidebar">
-                <div class="card upcoming-events">
-                    <div class="card-title">
-                        <span>Upcoming Events</span>
+                <div class="user-menu">
+                    <div class="notification-icon">
+                        <span>🔔</span>
+                        <div class="notification-badge">3</div>
                     </div>
-                    <ul class="event-list" id="event-list">
-                        <li class="event-item period-alert">
-                            <div class="event-date">In 14 days (Apr 7-13)</div>
-                            <div class="event-title">Expected Period</div>
-                            <div class="event-description">Your next period is expected to start in about 2 weeks.</div>
-                        </li>
-                        <li class="event-item ovulation-alert">
-                            <div class="event-date">In 7 days (Mar 31)</div>
-                            <div class="event-title">Expected Ovulation</div>
-                            <div class="event-description">Your next ovulation is expected in about 1 week.</div>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="card">
-                    <div class="card-title">
-                        <span>Common Symptoms</span>
-                    </div>
-                    <ul class="event-list">
-                        <li class="event-item">
-                            <div class="event-title">Menstrual Pain</div>
-                            <div class="event-description">7 out of your last 10 cycles</div>
-                        </li>
-                        <li class="event-item">
-                            <div class="event-title">Mood Changes</div>
-                            <div class="event-description">8 out of your last 10 cycles</div>
-                        </li>
-                        <li class="event-item">
-                            <div class="event-title">Acne Flare-ups</div>
-                            <div class="event-description">5 out of your last 10 cycles</div>
-                        </li>
-                    </ul>
+                    <div class="user-avatar">AK</div>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
     
-    <!-- Day Details Modal -->
-    <div id="day-modal" class="modal">
+    <main class="container">
+        <h1 class="page-title">Wellness Calendar</h1>
+        
+        <div class="tools-panel">
+            <button class="tool-button active" id="add-event-btn">
+                <span></span> Add Event
+            </button>
+            <button class="tool-button">
+                <span>📊</span> View Reports
+            </button>
+            <button class="tool-button">
+                <span>🔍</span> Find Patterns
+            </button>
+            <div class="calendar-views">
+                <button class="calendar-view-btn active">Month</button>
+                <button class="calendar-view-btn">Week</button>
+                <button class="calendar-view-btn">Day</button>
+            </div>
+        </div>
+        
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <div class="calendar-title">March 2025</div>
+                <div class="calendar-nav">
+                    <button id="prev-month">Previous</button>
+                    <button id="today">Today</button>
+                    <button id="next-month">Next</button>
+                </div>
+            </div>
+            
+            <div class="calendar-grid">
+                <div class="weekdays">
+                    <div class="weekday">Sun</div>
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                </div>
+                
+                <div class="dates">
+                    <!-- Previous month dates -->
+                    <div class="date-cell inactive">
+                        <div class="date-number">23</div>
+                    </div>
+                    <div class="date-cell inactive">
+                        <div class="date-number">24</div>
+                    </div>
+                    <div class="date-cell inactive">
+                        <div class="date-number">25</div>
+                    </div>
+                    <div class="date-cell inactive">
+                        <div class="date-number">26</div>
+                    </div>
+                    <div class="date-cell inactive">
+                        <div class="date-number">27</div>
+                    </div>
+                    <div class="date-cell inactive">
+                        <div class="date-number">28</div>
+                    </div>
+                    
+                    <!-- Current month dates -->
+                    <div class="date-cell">
+                        <div class="date-number">1</div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">2</div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">3</div>
+                        <div class="date-content">
+                            <div class="event symptom">Bloating</div>
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">4</div>
+                        <div class="date-content">
+                            <div class="event symptom">Acne</div>
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">5</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">6</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">7</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">8</div>
+                        <div class="date-content">
+                            <div class="event period">Period start</div>
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">9</div>
+                        <div class="date-content">
+                            <div class="event period">Period</div>
+                            <div class="event medication">Metformin</div>
+                            <div class="event symptom">Cramps</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">10</div>
+                        <div class="date-content">
+                            <div class="event period">Period</div>
+                            <div class="event medication">Metformin</div>
+                            <div class="event symptom">Fatigue</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">11</div>
+                        <div class="date-content">
+                            <div class="event period">Period</div>
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">12</div>
+                        <div class="date-content">
+                            <div class="event period">Period end</div>
+                            <div class="event medication">Metformin</div>
+                            <div class="event appointment">Gynecologist</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">13</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">14</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                            <div class="event exercise">Yoga</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">15</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">16</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                            <div class="event exercise">Walking</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">17</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">18</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                            <div class="event mental-health">Therapy</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">19</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">20</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                            <div class="event exercise">Yoga</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">21</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">22</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">23</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                            <div class="event symptom">Mood swings</div>
+                        </div>
+                    </div>
+                    <div class="date-cell today">
+                        <div class="date-number">24</div>
+                        <div class="date-content">
+                            <div class="event medication">Metformin</div>
+                            <div class="event mental-health">Meditation</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">25</div>
+                        <div class="date-content">
+                            <div class="event appointment">Nutritionist</div>
+                        </div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">26</div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">27</div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">28</div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">29</div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">30</div>
+                    </div>
+                    <div class="date-cell">
+                        <div class="date-number">31</div>
+                    </div>
+                    
+                    <!-- Next month dates -->
+                    <div class="date-cell inactive">
+                        <div class="date-number">1</div>
+                    </div>
+                    <div class="date-cell inactive">
+                        <div class="date-number">2</div>
+                    </div>
+                    <div class="date-cell inactive">
+                        <div class="date-number">3</div>
+                    </div>
+                    <div class="date-cell inactive">
+                        <div class="date-number">4</div>
+                    </div>
+                    <div class="date-cell inactive">
+                        <div class="date-number">5</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <h3 class="sidebar-title">Monthly Summary</h3>
+            <div class="summary-item">
+                <span>Cycle Length:</span>
+                <span>32 days</span>
+            </div>
+            <div class="summary-item">
+                <span>Period Duration:</span>
+                <span>5 days</span>
+            </div>
+            <div class="summary-item">
+                <span>Top Symptoms:</span>
+                <span>Bloating, Mood swings, Fatigue</span>
+            </div>
+            <div class="summary-item">
+                <span>Exercise Sessions:</span>
+                <span>3</span>
+            </div>
+            <div class="summary-item">
+                <span>Mental Health Activities:</span>
+                <span>2</span>
+            </div>
+            <div class="summary-item">
+                <span>Upcoming Appointments:</span>
+                <span>2</span>
+            </div>
+            
+            <h3 class="sidebar-title">Legend</h3>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #e74c3c;"></div>
+                    <span>Period</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #f39c12;"></div>
+                    <span>Symptoms</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #3498db;"></div>
+                    <span>Appointments</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #2ecc71;"></div>
+                    <span>Medication</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #9b59b6;"></div>
+                    <span>Mental Health</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #1abc9c;"></div>
+                    <span>Exercise</span>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Add Event Modal -->
+    <div class="modal" id="add-event-modal">
         <div class="modal-content">
-            <span class="close-modal" id="close-modal">&times;</span>
-            <h3 class="modal-title" id="modal-date">March 24, 2025</h3>
-            
-            <form id="day-form">
+            <div class="modal-header">
+                <div class="modal-title">Add Wellness Event</div>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
                 <div class="form-group">
-                    <label>Day Type:</label>
-                    <div class="symptom-checkboxes">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="is-period" name="is-period">
-                            <label for="is-period">Period Day</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="is-ovulation" name="is-ovulation">
-                            <label for="is-ovulation">Ovulation Day</label>
-                        </div>
-                    </div>
+                    <label class="form-label">Date</label>
+                    <input type="date" class="form-control" value="2025-03-24">
                 </div>
                 
                 <div class="form-group">
-                    <label>Symptoms:</label>
-                    <div class="symptom-checkboxes">
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="symptom-cramps" name="symptoms" value="cramps">
-                            <label for="symptom-cramps">Cramps</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="symptom-headache" name="symptoms" value="headache">
-                            <label for="symptom-headache">Headache</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="symptom-bloating" name="symptoms" value="bloating">
-                            <label for="symptom-bloating">Bloating</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="symptom-acne" name="symptoms" value="acne">
-                            <label for="symptom-acne">Acne</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="symptom-mood" name="symptoms" value="mood">
-                            <label for="symptom-mood">Mood Swings</label>
-                        </div>
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="symptom-fatigue" name="symptoms" value="fatigue">
-                            <label for="symptom-fatigue">Fatigue</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="flow-level">Flow Level (if period day):</label>
-                    <select id="flow-level" class="form-control">
-                        <option value="">Select flow level</option>
-                        <option value="light">Light</option>
-                        <option value="medium">Medium</option>
-                        <option value="heavy">Heavy</option>
-                        <option value="spotting">Spotting</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="notes">Notes:</label>
-                    <textarea id="notes" class="form-control" rows="3" placeholder="Add any notes about how you feel today..."></textarea>
-                </div>
-                
-                <button type="submit" class="btn btn-block">Save Changes</button>
-            </form>
-        </div>
-    </div>
-    
-    <!-- Notification Banner -->
-    <div class="notification" id="notification">
-        <div class="notification-title">Period Reminder</div>
-        <div class="notification-message" id="notification-message">Your period is expected to start in 3 days.</div>
-    </div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Calendar state
-            let currentDate = new Date();
-            let selectedDate = null;
-            
-            // Cycle data - would come from API in real app
-            let cycleData = {
-                // Example data structure
-                lastPeriods: [
-                    { start: new Date(2025, 1, 5), end: new Date(2025, 1, 11) },  // Feb 5-11
-                    { start: new Date(2025, 2, 10), end: new Date(2025, 2, 16) }  // Mar 10-16
-                ],
-                symptoms: [
-                    { date: new Date(2025, 2, 9), type: ['cramps', 'headache'] },
-                    { date: new Date(2025, 2, 10), type: ['cramps', 'mood'] },
-                    { date: new Date(2025, 2, 11), type: ['cramps', 'bloating'] },
-                    { date: new Date(2025, 2, 12), type: ['fatigue'] },
-                ],
-                ovulationDays: [
-                    new Date(2025, 1, 19),  // Feb 19
-                    new Date(2025, 2, 24),  // Mar 24 (today)
-                ],
-                fertileWindow: [
-                    { start: new Date(2025, 1, 17), end: new Date(2025, 1, 21) },  // Feb 17-21
-                    { start: new Date(2025, 2, 22), end: new Date(2025, 2, 26) }   // Mar 22-26
-                ]
-            };
-            
-            // Initialize calendar
-            updateCalendar();
-            
-            // Event listeners
-            document.getElementById('prev-month').addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                updateCalendar();
-            });
-            
-            document.getElementById('next-month').addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                updateCalendar();
-            });
-            
-            // Close modal when clicking X or outside
-            document.getElementById('close-modal').addEventListener('click', () => {
-                document.getElementById('day-modal').style.display = 'none';
-            });
-            
-            window.addEventListener('click', (e) => {
-                if (e.target === document.getElementById('day-modal')) {
-                    document.getElementById('day-modal').style.display = 'none';
-                }
-            });
-            
-            // Form submission
-            document.getElementById('day-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                if (!selectedDate) return;
-                
-                // Get form values
-                const isPeriod = document.getElementById('is-period').checked;
-                const isOvulation = document.getElementById('is-ovulation').checked;
-                const flowLevel = document.getElementById('flow-level').value;
-                const notes = document.getElementById('notes').value;
-                
-                // Get selected symptoms
-                const selectedSymptoms = [];
-                document.querySelectorAll('input[name="symptoms"]:checked').forEach(checkbox => {
-                    selectedSymptoms.push(checkbox.value);
-                });
-                
-                // In a real app, this would save to an API
-                console.log({
-                    date: selectedDate,
-                    isPeriod,
-                    isOvulation,
-                    flowLevel: isPeriod ? flowLevel : null,
-                    symptoms: selectedSymptoms,
-                    notes
-                });
-                
-                // For demo: add to local data if it's a period
-                if (isPeriod) {
-                    // Check if this date is already part of a period
-                    let existingPeriodIndex = -1;
-                    for (let i = 0; i < cycleData.lastPeriods.length; i++) {
-                        const period = cycleData.lastPeriods[i];
-                        if (selectedDate >= period.start && selectedDate <= period.end) {
-                            existingPeriodIndex = i;
-                            break;
-                        }
-                    }
-                    
-                    if (existingPeriodIndex === -1) {
-                        // New period - for simplicity just add a single day period
-                        cycleData.lastPeriods.push({
-                            start: new Date(selectedDate),
-                            end: new Date
+                    <label class="form-label">Event Type</label>
+                    <div class="event-type-selector">
+                        <div class="event-type-option period">Period</div>
+                        <div class="event-type-option symptom">Symptom</div>
+                        <div class="event-type-option appointment">

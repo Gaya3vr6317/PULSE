@@ -6,8 +6,8 @@
     <title>Mental Wellness Assessment</title>
     <style>
         :root {
-            --primary-color: #5b86e5;
-            --secondary-color: #36d1dc;
+            --primary-color: #ff6b6bd1;
+            --secondary-color: #9d2036;
             --text-color: #333;
             --light-bg: #f9f9f9;
             --accent-color: #ff6b6b;
@@ -38,7 +38,7 @@
         }
         
         h2 {
-            color: var(--primary-color);
+            color: #CD5C5C;
             margin-bottom: 25px;
             font-size: 1.6rem;
         }
@@ -339,7 +339,7 @@
                 document.getElementById("question").innerText = questions[step].text;
                 document.getElementById("description").innerText = questions[step].description;
                 document.getElementById("progressBar").style.width = ((step / questions.length) * 100) + "%";
-                document.getElementById("progressText").innerText = Question ${step + 1} of ${questions.length};
+                document.getElementById("progressText").innerText = `Question ${step + 1} of ${questions.length}`;
                 slider.value = 3;
                 sliderValue.innerText = 3;
             } else {
@@ -412,7 +412,7 @@
                 
                 const barElement = document.createElement("div");
                 barElement.className = "chart-bar";
-                barElement.style.height = ${barHeight}%;
+                barElement.style.height = `${barHeight}%`;
                 
                 const labelElement = document.createElement("div");
                 labelElement.className = "chart-label";
