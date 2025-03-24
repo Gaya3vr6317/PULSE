@@ -69,7 +69,8 @@ For Software:
 
 
 # Build Photos
-![Team]![WhatsApp Image 2025-02-09 at 09 43 28_5ffcc086](https://github.com/user-attachments/assets/f2d4aa6b-e7ce-430d-8480-d88940e13478)
+![Team]![WhatsApp Image 2025-02-09 at 09 43 28_5ffcc086](https://github.com/user-attachments/assets/188885a3-5876-432d-a32d-33eca84fb9e6)
+
 
 
 
