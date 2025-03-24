@@ -31,11 +31,11 @@ login.html
 For Software:
 
 # Screenshots (Add at least 3)
-![Screenshot1]![image](https://1drv.ms/i/c/a2ef1a5762079a7f/EQUdypLTF1JLqnVR0LdZ7JoBMzRdRMUBLQOv3Q4VtXzzjA?e=sT37hU)
+![Screenshot1]![image](https://github.com/user-attachments/assets/42bcff0b-e67a-41b5-b6d4-83058283ef26)
 
 *homepage*
 
-![Screenshot2]![image](https://1drv.ms/i/c/a2ef1a5762079a7f/EWsLPGwjg-xHhvL9c_uJ6XYBEpaBB-0Yn-VHUw1iTsO0Ng?e=Zh6Rbu)
+![Screenshot2]![image](https://github.com/user-attachments/assets/82c1dd4b-de89-45f6-83fe-041d3713de6a)
 
 *signup page*
 
@@ -47,23 +47,23 @@ For Software:
 
 *symptom tracker*
 
-![Screenshot5]!![image](https://1drv.ms/i/c/a2ef1a5762079a7f/EXqvupqJYRdMq5aJ5K1ca4cBzy9KJxh0m9BcyEAIbmA9QA?e=TiCuR9)
+![Screenshot5]!![image](https://github.com/user-attachments/assets/a7fd8a47-e8ce-4f01-913a-da8df1780b92)
 
 *mental assess*
 
-![Screenshot6]!![image](https://1drv.ms/i/c/a2ef1a5762079a7f/EUIqwk2iZLhJgZQPLTItc2gBE3GGcOG_JDAiNQCnSz9rOQ?e=KrtAMx)
+![Screenshot6]!![image](https://github.com/user-attachments/assets/613c6ab3-af34-4480-86b3-d17afa405f87)
 
 *resource centre*
 
-![Screenshot7]!![image](https://1drv.ms/i/c/a2ef1a5762079a7f/Ee5VghTy5ItIgBTJMVC9hq0B7Xrb6oMPw-raIUi9QYMmSQ?e=yV0ptl)
+![Screenshot7]!![image](https://github.com/user-attachments/assets/029be183-264e-49bd-81de-cbb93beb18f9)
 
 *education resource*
 
-![Screenshot8]!![image](https://1drv.ms/i/c/a2ef1a5762079a7f/ETgrd_LYk-pEkeiObnPycVIBrpTl3rsDUCsHcJWDlHSU5A?e=9Sb8Sy)
+![Screenshot8]!![image](https://github.com/user-attachments/assets/bf5cd142-0312-47a8-bca5-d11fee5f811b)
 
 *self assessment*
 
-![Screenshot9]!![image](https://1drv.ms/i/c/a2ef1a5762079a7f/ETlC6Kv_ux9Njeis3xJuinYB6k21FtTTQveLZuCUMvkGDw?e=n0L9YL)
+![Screenshot9]!![image](https://github.com/user-attachments/assets/f2dbc9b4-65fe-4a29-a60c-1ec44528e153)
 
 *guide*
 
