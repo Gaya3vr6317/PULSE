@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Assessment</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+        .btn {
+            margin: 8px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #ff6f61;
+            color: white;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #ff3b30;
+        }
+        .progress {
+            height: 12px;
+            background: #ddd;
+            margin-top: 15px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: #ff6f61;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="question">Loading...</h2>
+        <div id="options"></div>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p id="result" style="display:none;"></p>
+        <button id="retry" class="btn" style="display:none;" onclick="restartTest()">Retake Assessment</button>
+    </div>
+
+    <script>
+        const questions = [
+            "How often do you feel overwhelmed?",
+            "Do you have trouble sleeping due to stress?",
+            "Do you feel anxious or worried frequently?",
+            "How often do you experience mood swings?",
+            "Do you feel supported by those around you?",
+            "Do you find it hard to concentrate on tasks?",
+            "Do you often feel unmotivated?",
+            "How frequently do you experience feelings of loneliness?",
+            "Do you feel physically exhausted without clear reasons?",
+            "Do you enjoy activities that once made you happy?"
+        ];
+
+        let step = 0;
+        let responses = [];
+        
+        function loadQuestion() {
+            if (step < questions.length) {
+                document.getElementById("question").innerText = questions[step];
+                document.getElementById("options").innerHTML = "";
+                [1, 2, 3, 4, 5].forEach(value => {
+                    let btn = document.createElement("button");
+                    btn.innerText = value;
+                    btn.className = "btn";
+                    btn.onclick = () => handleResponse(value);
+                    document.getElementById("options").appendChild(btn);
+                });
+                document.getElementById("progressBar").style.width = ((step / questions.length) * 100) + "%";
+            } else {
+                showResult();
+            }
+        }
+
+        function handleResponse(value) {
+            responses.push(value);
+            step++;
+            loadQuestion();
+        }
+
+        function showResult() {
+            const score = responses.reduce((acc, val) => acc + val, 0);
+            let mentalState = "";
+            if (score <= 10) mentalState = "Stable & Well-balanced";
+            else if (score <= 20) mentalState = "Mild Stress";
+            else if (score <= 30) mentalState = "Moderate Anxiety";
+            else mentalState = "High Stress & Anxiety";
+            
+            document.getElementById("question").style.display = "none";
+            document.getElementById("options").style.display = "none";
+            document.getElementById("progressBar").style.width = "100%";
+            document.getElementById("result").innerText = "Your Mental State: " + mentalState;
+            document.getElementById("result").style.display = "block";
+            document.getElementById("retry").style.display = "block";
+        }
+
+        function restartTest() {
+            step = 0;
+            responses = [];
+            document.getElementById("question").style.display = "block";
+            document.getElementById("options").style.display = "block";
+            document.getElementById("result").style.display = "none";
+            document.getElementById("retry").style.display = "none";
+            loadQuestion();
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
