@@ -2,878 +2,238 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PCOD Wellness Hub - Health Resources</title>
+    <title>Health Education Resource</title>
     <style>
-        :root {
-            --primary: #CD5C5C;
-            --primary-light: #a55ebc;
-            --secondary: #3498db;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --success: #2ecc71;
-            --warning: #f39c12;
-            --danger: #e74c3c;
-            --gray: #6c757d;
-            --gray-light: #e9ecef;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
-            background-color: #f5f5f5;
-            color: var(--dark);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        header {
-            background-color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 20px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            padding: 8px 12px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            background-color: var(--gray-light);
-            color: var(--primary);
-        }
-        
-        .nav-links a.active {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .user-menu {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--gray-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            color: var(--gray);
-            cursor: pointer;
-        }
-        
-        .notification-icon {
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 18px;
-            height: 18px;
-            background-color: var(--danger);
-            color: white;
-            border-radius: 50%;
-            font-size: 0.7rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        main {
-            padding: 30px 0;
-        }
-        
-        .page-title {
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-            color: var(--primary);
-        }
-        
-        .resources-container {
-            display: grid;
-            grid-template-columns: 250px 1fr;
-            gap: 30px;
-        }
-        
-        .sidebar {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 0;
             padding: 20px;
-            height: fit-content;
-            position: sticky;
-            top: 100px;
+            background-color: #f5f5f5;
+            color: #333;
         }
-        
-        .sidebar-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--primary);
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--gray-light);
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
         }
-        
-        .sidebar-menu {
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .button-container {
             display: flex;
-            flex-direction: column;
-            gap: 5px;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
         }
-        
-        .menu-item {
-            padding: 10px;
-            border-radius: 4px;
+
+        .topic-button {
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: bold;
         }
-        
-        .menu-item:hover {
-            background-color: 	#F08080;
-        }
-        
-        .menu-item.active {
+
+        #menstruation-btn {
             background-color: 	#CD5C5C;
             color: white;
         }
-        
-        .submenu {
-            margin-left: 15px;
-            margin-top: 5px;
+
+        #sex-ed-btn {
+            background-color: 	#CD5C5C;
+            color: white;
+        }
+
+        .topic-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .content-section {
             display: none;
-        }
-        
-        .submenu.active {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .content-area {
-            background-color: white;
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            padding: 30px;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-in;
         }
-        
-        .resource-header {
-            margin-bottom: 20px;
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
-        
-        .resource-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 10px;
+
+        .menstruation-content {
+            background-color: #cd5c5c5c;
         }
-        
-        .resource-subtitle {
-            font-size: 1.1rem;
-            color: var(--gray);
-            margin-bottom: 20px;
+
+        .sex-ed-content {
+            background-color:#cd5c5c5c;
         }
-        
-        .resource-meta {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+
+        .myth-fact-container {
+            margin-top: 20px;
         }
-        
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-        
-        .expert-verified {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            background-color: #d1ecf1;
-            color: #0c5460;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-        
-        .resource-content {
-            margin-bottom: 30px;
-        }
-        
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--primary);
-            margin: 25px 0 15px;
-        }
-        
-        .section-content {
-            margin-bottom: 20px;
-        }
-        
-        p {
-            margin-bottom: 15px;
-        }
-        
-        .info-card {
-            background-color: var(--light);
-            border-left: 4px solid var(--primary);
+
+        .myth-fact-item {
+            background: white;
             padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
-        
-        .myth-fact {
-            background-color: #fff3cd;
-            border-left: 4px solid #ffc107;
+
+        .myth {
+            border-left: 4px solid #ff4444;
+        }
+
+        .fact {
+            border-left: 4px solid #00C851;
+        }
+
+        .topic-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .topic-header h2 {
+            margin: 0;
+        }
+
+        .resources {
+            margin-top: 20px;
             padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        
-        .myth-fact-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #856404;
-        }
-        
-        .illustration {
-            max-width: 100%;
-            margin: 20px 0;
+            background:	#CD5C5C;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .resource-infographics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        
-        .info-graphic {
-            flex: 1;
-            min-width: 250px;
-            background-color: var(--light);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .graphic-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-        
-        .faq-section {
-            margin: 30px 0;
-        }
-        
-        .faq-item {
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--gray-light);
-            padding-bottom: 15px;
-        }
-        
-        .faq-question {
-            font-weight: 600;
-            margin-bottom: 10px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .faq-answer {
-            display: none;
-            padding: 10px 0;
-        }
-        
-        .faq-answer.active {
-            display: block;
-        }
-        
-        .resource-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-        
-        .action-btn {
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--primary-light);
-        }
-        
-        .btn-secondary {
-            background-color: white;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-        }
-        
-        .btn-secondary:hover {
-            background-color: var(--primary-light);
-            color: white;
-        }
-        
-        .resource-filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .filter-btn {
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background-color: var(--light);
-            border: 1px solid var(--gray-light);
-            font-size: 0.9rem;
-        }
-        
-        .filter-btn:hover {
-            background-color: var(--gray-light);
-        }
-        
-        .filter-btn.active {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .search-box {
-            display: flex;
-            margin-bottom: 20px;
-        }
-        
-        .search-input {
-            flex: 1;
-            padding: 10px 15px;
-            border: 1px solid var(--gray-light);
-            border-right: none;
-            border-radius: 4px 0 0 4px;
-            font-size: 1rem;
-        }
-        
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
-        .search-btn {
-            padding: 0 15px;
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 0 4px 4px 0;
-            cursor: pointer;
-        }
-        
-        .search-btn:hover {
-            background-color: var(--primary-light);
-        }
-        
-        .resource-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        
-        .tag {
-            padding: 5px 10px;
-            background-color: var(--gray-light);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-        
-        .related-resources {
-            background-color: var(--light);
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 30px;
-        }
-        
-        .related-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-        
-        .related-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .related-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        
-        .related-item:hover {
-            background-color: var(--gray-light);
-        }
-        
-        .related-icon {
-            color: var(--primary);
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--gray-light);
-        }
-        
-        th {
-            background-color: var(--primary-light);
-            color: white;
-            font-weight: 500;
-        }
-        
-        tr:nth-child(even) {
-            background-color: var(--light);
-        }
-        
-        .feedback-section {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid var(--gray-light);
-        }
-        
-        .feedback-question {
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-        
-        .feedback-options {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .feedback-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-        }
-        
-        .resource-tabs {
-            display: flex;
-            border-bottom: 1px solid var(--gray-light);
-            margin-bottom: 20px;
-        }
-        
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-        }
-        
-        .tab:hover {
-            background-color: var(--gray-light);
-        }
-        
-        .tab.active {
-            border-bottom-color: var(--primary);
-            color: var(--primary);
-            font-weight: 500;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .citation {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px solid var(--gray-light);
-            font-size: 0.9rem;
-            color: var(--gray);
-        }
-        
-        .citation-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        
-        .citation-list {
-            padding-left: 20px;
-        }
-        
-        .citation-item {
-            margin-bottom: 10px;
-        }
-        
-        @media (max-width: 992px) {
-            .resources-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                position: relative;
-                top: 0;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .resource-title {
-                font-size: 1.5rem;
-            }
-            
-            .resource-infographics {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="navbar">
-                <div class="logo">
-                    <div class="logo-icon">P</div>
-                    <span>PULSE</span>
-                </div>
-                <div class="nav-links">
-                    <a href="#">Dashboard</a>
-                    <a href="#">Calendar</a>
-                    <a href="#">Symptoms</a>
-                    <a href="#">Mental Health</a>
-                    <a href="#" class="active">Resources</a>
-                </div>
-                <div class="user-menu">
-                    <div class="notification-icon">
-                        <span>🔔</span>
-                        <div class="notification-badge">3</div>
-                    </div>
-                    <div class="user-avatar">AK</div>
-                </div>
-            </div>
-        </div>
-    </header>
-    
-    <main class="container">
-        <h1 class="page-title">Health Resources</h1>
+    <div class="container">
+        <h1>Health Education Resource</h1>
         
-        <div class="search-box">
-            <input type="text" class="search-input" placeholder="Search resources...">
-            <button class="search-btn">🔍</button>
+        <div class="button-container">
+            <button id="menstruation-btn" class="topic-button" onclick="showContent('menstruation')">MENSTRUATION</button>
+            <button id="sex-ed-btn" class="topic-button" onclick="showContent('sex-ed')">SEX EDUCATION</button>
         </div>
-        
-        <div class="resource-filters">
-            <button class="filter-btn active">All Resources</button>
-            <button class="filter-btn">PCOD Basics</button>
-            <button class="filter-btn">Menstruation</button>
-            <button class="filter-btn">Sex Education</button>
-            <button class="filter-btn">Hygiene</button>
-            <button class="filter-btn">Hormonal Health</button>
-            <button class="filter-btn">Mental Wellness</button>
-        </div>
-        
-        <div class="resources-container">
-            <div class="sidebar">
-                <h3 class="sidebar-title">Categories</h3>
-                <div class="sidebar-menu">
-                    <div class="menu-item">PCOD Essentials</div>
-                    <div class="menu-item active">Menstruation
-                        <div class="submenu active">
-                            <div class="menu-item">Menstrual Cycle Basics</div>
-                            <div class="menu-item active">Understanding Period Products</div>
-                            <div class="menu-item">Managing Period Pain</div>
-                            <div class="menu-item">Tracking Your Cycle</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">Sex Education
-                        <div class="submenu">
-                            <div class="menu-item">Reproductive Anatomy</div>
-                            <div class="menu-item">Safe Sex Practices</div>
-                            <div class="menu-item">Consent & Communication</div>
-                            <div class="menu-item">PCOD & Fertility</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">Hygiene & Self-Care
-                        <div class="submenu">
-                            <div class="menu-item">Menstrual Hygiene</div>
-                            <div class="menu-item">Intimate Health</div>
-                            <div class="menu-item">Skin Care with PCOD</div>
-                        </div>
-                    </div>
-                    <div class="menu-item">Hormonal Health</div>
-                    <div class="menu-item">Mental Wellness</div>
-                    <div class="menu-item">Nutrition & Exercise</div>
-                    <div class="menu-item">Expert Q&A</div>
-                </div>
-                
-                <h3 class="sidebar-title">Resource Type</h3>
-                <div class="sidebar-menu">
-                    <div class="menu-item">Articles</div>
-                    <div class="menu-item">Videos</div>
-                    <div class="menu-item">Infographics</div>
-                    <div class="menu-item">E-Books</div>
-                    <div class="menu-item">Expert Interviews</div>
-                </div>
+
+        <div id="menstruation-content" class="content-section menstruation-content">
+            <div class="topic-header">
+                <h2>Understanding Menstruation</h2>
             </div>
             
-            <div class="content-area">
-                <div class="resource-tabs">
-                    <div class="tab active">Menstruation</div>
-                    <div class="tab">Sex Education</div>
-                    <div class="tab">Hygiene</div>
-                </div>
+            <p>Menstruation is a natural biological process that typically occurs monthly as part of the reproductive cycle. Understanding this process is crucial for overall health awareness.</p>
+            
+            <h3>Key Information:</h3>
+            <ul>
+                <li>Average cycle length: 28 days (can range from 21-35 days)</li>
+                <li>Typical period duration: 3-7 days</li>
+                <li>Age of first period (menarche): Usually between 10-15 years</li>
+                <li>Common symptoms: Cramps, mood changes, fatigue, bloating</li>
+            </ul>
+
+            <div class="myth-fact-container">
+                <h3>Myths vs Facts</h3>
                 
-                <div class="tab-content active" id="menstruation-content">
-                    <div class="resource-header">
-                        <h2 class="resource-title">Understanding Menstruation & PCOD</h2>
-                        <p class="resource-subtitle">A comprehensive guide to menstrual health for women with PCOD</p>
-                        <div class="resource-meta">
-                            <div class="meta-item">📅 Updated: March 15, 2025</div>
-                            <div class="meta-item">👁️ 2,456 views</div>
-                            <div class="expert-verified">✓ Expert Verified</div>
-                        </div>
-                        <div class="resource-tags">
-                            <div class="tag">Menstruation</div>
-                            <div class="tag">PCOD</div>
-                            <div class="tag">Period Products</div>
-                            <div class="tag">Menstrual Health</div>
-                        </div>
-                    </div>
-                    
-                    <div class="resource-content">
-                        <h3 class="section-title">The Menstrual Cycle Explained</h3>
-                        <div class="section-content">
-                            <p>The menstrual cycle is a natural process that occurs in women of reproductive age. It typically lasts between 21-35 days, with the average being 28 days. For women with PCOD, cycles may be irregular or absent, which is a key symptom of the condition.</p>
-                            
-                            <div class="resource-infographics">
-                                <div class="info-graphic">
-                                    <h4 class="graphic-title">Menstrual Cycle Phases</h4>
-                                    <ol>
-                                        <li><strong>Menstrual Phase (Days 1-5):</strong> The shedding of the uterine lining</li>
-                                        <li><strong>Follicular Phase (Days 1-13):</strong> Development of follicles in the ovary</li>
-                                        <li><strong>Ovulation (Day 14):</strong> Release of an egg from the ovary</li>
-                                        <li><strong>Luteal Phase (Days 15-28):</strong> Preparation for possible pregnancy</li>
-                                    </ol>
-                                </div>
-                                <div class="info-graphic">
-                                    <h4 class="graphic-title">PCOD & Your Cycle</h4>
-                                    <p>In PCOD, hormonal imbalances can cause:</p>
-                                    <ul>
-                                        <li>Irregular periods (oligomenorrhea)</li>
-                                        <li>Absent periods (amenorrhea)</li>
-                                        <li>Heavy bleeding</li>
-                                        <li>Prolonged periods</li>
-                                        <li>Unpredictable cycles</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div class="info-card">
-                                <p><strong>Did you know?</strong> Women with PCOD often have higher levels of androgens (male hormones), which can disrupt the regular menstrual cycle by preventing follicles from maturing properly.</p>
-                            </div>
-                        </div>
-                        
-                        <h3 class="section-title">Understanding Period Products</h3>
-                        <div class="section-content">
-                            <p>Choosing the right period products can make managing menstruation more comfortable, especially for women with PCOD who may experience irregular or heavy bleeding. Here's a comprehensive guide to available options:</p>
-                            
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Duration of Use</th>
-                                        <th>Best For</th>
-                                        <th>Environmental Impact</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Disposable Pads</td>
-                                        <td>4-8 hours</td>
-                                        <td>Heavy flow, overnight use</td>
-                                        <td>High (single-use)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tampons</td>
-                                        <td>4-8 hours</td>
-                                        <td>Swimming, active lifestyles</td>
-                                        <td>High (single-use)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Menstrual Cups</td>
-                                        <td>Up to 12 hours</td>
-                                        <td>Medium to heavy flow, eco-conscious</td>
-                                        <td>Low (reusable for years)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Period Underwear</td>
-                                        <td>Depending on flow</td>
-                                        <td>Light days, backup protection</td>
-                                        <td>Low (reusable)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Reusable Pads</td>
-                                        <td>4-8 hours</td>
-                                        <td>Sensitive skin, eco-conscious</td>
-                                        <td>Low (reusable)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Menstrual Discs</td>
-                                        <td>Up to 12 hours</td>
-                                        <td>Intimacy during period, heavy flow</td>
-                                        <td>Medium (some reusable options)</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            
-                            <div class="myth-fact">
-                                <p class="myth-fact-title">MYTH: Women with PCOD shouldn't use tampons or menstrual cups.</p>
-                                <p>FACT: There's no medical reason why women with PCOD cannot use internal period products. The choice of period product should be based on personal comfort, lifestyle, and flow rather than having PCOD. However, if you experience unusual pain or discomfort, consult with your healthcare provider.</p>
-                            </div>
-                        </div>
-                        
-                        <h3 class="section-title">Managing Irregular Periods with PCOD</h3>
-                        <div class="section-content">
-                            <p>Irregular periods are common in women with PCOD due to hormonal imbalances. Here are some strategies to help manage unpredictable cycles:</p>
-                            
-                            <ol>
-                                <li><strong>Track your symptoms:</strong> Use the PCOD Wellness Hub's tracking feature to monitor your cycle, even if irregular.</li>
-                                <li><strong>Maintain a healthy weight:</strong> Even a 5-10% reduction in body weight can help regulate periods in many women with PCOD.</li>
-                                <li><strong>Regular exercise:</strong> Moderate physical activity can help balance hormones and improve insulin sensitivity.</li>
-                                <li><strong>Healthy diet:</strong> Focus on anti-inflammatory foods, complex carbohydrates, and foods with a low glycemic index.</li>
-                                <li><strong>Stress management:</strong> Chronic stress can worsen hormonal imbalances; practices like yoga, meditation, or counseling can help.</li>
-                                <li><strong>Hormonal treatments:</strong> Your doctor may recommend hormonal birth control to regulate your cycle.</li>
-                                <li><strong>Always be prepared:</strong> Keep period products with you at all times due to unpredictability.</li>
-                            </ol>
-                            
-                            <div class="info-card">
-                                <p><strong>Important:</strong> If you haven't had a period for more than 3 months (and you're not pregnant), experience extremely heavy bleeding, or have severe pain, consult with your healthcare provider promptly.</p>
-                            </div>
-                        </div>
-                        
-                        <h3 class="section-title">Frequently Asked Questions</h3>
-                        <div class="faq-section">
-                            <div class="faq-item">
-                                <div class="faq-question">
-                                    <span>Is it normal to have very irregular periods with PCOD?</span>
-                                    <span>+</span>
-                                </div>
-                                <div class="faq-answer">
-                                    <p>Yes, irregular periods are one of the most common symptoms of PCOD, affecting about 80% of women with the condition. This happens because the hormonal imbalances associated with PCOD can prevent regular ovulation, leading to unpredictable or missed periods. However, with proper management through lifestyle changes, nutrition, exercise, and sometimes medication, many women can achieve more regular cycles.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <div class="faq-question">
-                                    <span>Can I get pregnant if I have irregular periods due to PCOD?</span>
-                                    <span>+</span>
-                                </div>
-                                <div class="faq-answer">
-                                    <p>Yes, women with PCOD can still get pregnant, though it may be more challenging due to irregular ovulation. Many women with PCOD successfully conceive, either naturally or with fertility treatments. If you're trying to conceive, work with a reproductive endocrinologist who specializes in PCOD. They can help track your ovulation and recommend appropriate treatments to improve your chances of pregnancy.</p>
-                                </div>
-                            </div>
-                            <div class="faq-item">
-                                <div class="faq-question">
-                                    <span>What's the best way to track my irregular periods with PCOD?</span>
-                                    <span>+</span>
-                                </div>
-                                <div class="faq-answer">
-                                    <p>Use a comprehensive tracking app like PCOD Wellness Hub that allows you to record not just period dates but also symptoms, mood changes, and physical signs. Look for patterns over several months rather than expecting a predictable cycle. Track additional PCOD symptoms such as acne flare-ups, hair growth patterns, and weight fluctu
+                <div class="myth-fact-item myth">
+                    <h4>MYTH: Exercise should be avoided during menstruation</h4>
+                    <p>Exercise can actually help alleviate menstrual cramps and improve mood through endorphin release.</p>
+                </div>
+
+                <div class="myth-fact-item fact">
+                    <h4>FACT: Menstrual cycles can be irregular</h4>
+                    <p>Variation in cycle length is normal, especially during adolescence and approaching menopause.</p>
+                </div>
+
+                <div class="myth-fact-item myth">
+                    <h4>MYTH: You shouldn't bathe during your period</h4>
+                    <p>Regular bathing is essential for hygiene and can help with cramp relief.</p>
+                </div>
+
+                <div class="myth-fact-item fact">
+                    <h4>FACT: PMS is a real condition</h4>
+                    <p>Premenstrual Syndrome involves physical and emotional symptoms caused by hormonal changes.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="sex-ed-content" class="content-section sex-ed-content">
+            <div class="topic-header">
+                <h2>Comprehensive Sex Education</h2>
+            </div>
+
+            <p>Sex education encompasses physical, emotional, social, and mental aspects of human sexuality and relationships.</p>
+
+            <h3>Key Topics:</h3>
+            <ul>
+                <li>Reproductive health and anatomy</li>
+                <li>Consent and healthy relationships</li>
+                <li>STI prevention and safe practices</li>
+                <li>Gender identity and sexual orientation</li>
+                <li>Emotional and psychological aspects</li>
+            </ul>
+
+            <div class="myth-fact-container">
+                <h3>Myths vs Facts</h3>
+                
+                <div class="myth-fact-item myth">
+                    <h4>MYTH: Sex education promotes early sexual activity</h4>
+                    <p>Research shows that comprehensive sex education actually helps young people make more informed and safer decisions.</p>
+                </div>
+
+         za       <div class="myth-fact-item fact">
+                    <h4>FACT: Communication is key in relationships</h4>
+                    <p>Open dialogue about boundaries, consent, and expectations leads to healthier relationships.</p>
+                </div>
+
+                <div class="myth-fact-item myth">
+                    <h4>MYTH: STIs always show symptoms</h4>
+                    <p>Many STIs can be asymptomatic, which is why regular testing is important for sexually active individuals.</p>
+                </div>
+
+                <div class="myth-fact-item fact">
+                    <h4>FACT: Consent can be withdrawn at any time</h4>
+                    <p>Consent must be enthusiastic, ongoing, and can be revoked at any point during any activity.</p>
+                </div>
+            </div>
+
+            <div class="resources">
+                <h3>Additional Resources</h3>
+                <ul>
+                    <li>Contact healthcare providers for personalized advice</li>
+                    <li>School counselors and health educators</li>
+                    <li>Trusted online medical resources</li>
+                    <li>Local health clinics and community centers</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showContent(topic) {
+            // Hide all content sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show selected content
+            document.getElementById(`${topic}-content`).style.display = 'block';
+
+            // Scroll to content smoothly
+            document.getElementById(`${topic}-content`).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
