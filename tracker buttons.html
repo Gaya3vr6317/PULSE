@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCOD Resource Center</title>
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --primary-light: #9b59b6;
+            --secondary: #3498db;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .subtitle {
+            font-weight: normal;
+            margin-top: 0.5rem;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .resource-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 180px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .resource-btn:hover {
+            background-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .resource-btn.active {
+            background-color: var(--dark);
+        }
+        
+        .content-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            min-height: 400px;
+            display: none;
+        }
+        
+        .content-card.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h2 {
+            color: var(--primary);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+        
+        .info-block {
+            margin-bottom: 20px;
+            border-left: 4px solid var(--secondary);
+            padding-left: 15px;
+        }
+        
+        .info-block h3 {
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .severity-tag {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .mild {
+            background-color: #d5f5e3;
+            color: #1e8449;
+        }
+        
+        .moderate {
+            background-color: #fef5e7;
+            color: #9a7d0a;
+        }
+        
+        .severe {
+            background-color: #fadbd8;
+            color: #943126;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .note {
+            background-color: #d6eaf8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        @media (max-width: 600px) {
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .resource-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PCOD Resource Center</h1>
+            <p class="subtitle">Comprehensive guides for managing PCOD symptoms</p>
+        </header>
+        
+        <div class="buttons-container">
+            <button class="resource-btn" id="remedialBtn">Remedial Measures</button>
+            <button class="resource-btn" id="exerciseBtn">Exercise Plan</button>
+            <button class="resource-btn" id="dietBtn">Diet Plan</button>
+        </div>
+        
+        <!-- Remedial Measures Content -->
+        <div class="content-card" id="remedialContent">
+            <h2>Remedial Measures for PCOD</h2>
+            
+            <div class="info-block">
+                <h3><span class="severity-tag mild">Mild</span>Lifestyle Adjustments</h3>
+                <ul>
+                    <li><strong>Regular health check-ups:</strong> Schedule quarterly appointments with your gynecologist to monitor hormonal levels and ovarian health.</li>
+                    <li><strong>Sleep hygiene:</strong> Establish a consistent sleep schedule with 7-8 hours of quality sleep to help regulate hormones.</li>
+                    <li><strong>Stress management:</strong> Practice daily relaxation techniques like deep breathing, meditation, or gentle yoga.</li>
+                    <li><strong>Limited caffeine:</strong> Reduce caffeine intake to minimize hormonal fluctuations and improve sleep quality.</li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3><span class="severity-tag moderate">Moderate</span>Therapeutic Approaches</h3>
+                <ul>
+                    <li><strong>Supplements:</strong> Consider inositol (2-4g daily), vitamin D (1000-2000 IU), omega-3 fatty acids, and magnesium after consulting with your healthcare provider.</li>
+                    <li><strong>Acupuncture:</strong> May help regulate menstrual cycles and reduce pain through bi-weekly sessions.</li>
+                    <li><strong>Heat therapy:</strong> Use heating pads on the lower abdomen to alleviate menstrual cramps and pelvic discomfort.</li>
+                    <li><strong>Essential oils:</strong> Try clary sage, lavender, or marjoram essential oils diluted in carrier oil for massage or aromatherapy.</li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3><span class="severity-tag severe">Severe</span>Medical Interventions</h3>
+                <ul>
+                    <li><strong>Hormonal medications:</strong> Birth control pills, anti-androgens, or progestin therapy may be prescribed to regulate cycles and manage symptoms.</li>
+                    <li><strong>Metformin:</strong> May be prescribed to improve insulin sensitivity and regulate ovulation.</li>
+                    <li><strong>Spironolactone:</strong> Sometimes prescribed to address excessive hair growth and acne.</li>
+                    <li><strong>Referral to specialists:</strong> Endocrinologists, reproductive endocrinologists, or dermatologists depending on predominant symptoms.</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                Note: Always consult with your healthcare provider before starting any new supplement or treatment plan. These recommendations should complement, not replace, professional medical advice.
+            </div>
+        </div>
+        
+        <!-- Exercise Plan Content -->
+        <div class="content-card" id="exerciseContent">
+            <h2>Exercise Plan for PCOD Management</h2>
+            
+            <div class="info-block">
+                <h3><span class="severity-tag mild">Mild</span>Gentle Activity Recommendations</h3>
+                <ul>
+                    <li><strong>Walking:</strong> 30 minutes daily at a moderate pace to improve insulin sensitivity without strain.</li>
+                    <li><strong>Swimming:</strong> 2-3 times weekly for 30 minutes as a low-impact, full-body workout.</li>
+                    <li><strong>Beginner yoga:</strong> 3-4 sessions weekly focusing on restorative poses that support hormonal balance.</li>
+                    <li><strong>Light strength training:</strong> 2 times weekly using bodyweight exercises or light resistance bands.</li>
+                    <li><strong>Cycling:</strong> 20-30 minute sessions on a stationary bike at low to moderate intensity.</li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3><span class="severity-tag moderate">Moderate</span>Intermediate Exercise Regimen</h3>
+                <ul>
+                    <li><strong>Interval walking:</strong> Alternating 3 minutes of brisk walking with 2 minutes of normal pace for 30-40 minutes, 3-4 times weekly.</li>
+                    <li><strong>Strength training:</strong> 3 times weekly with moderate weights, focusing on compound movements.</li>
+                    <li><strong>HIIT (modified):</strong> 15-20 minute sessions once or twice weekly with appropriate rest intervals.</li>
+                    <li><strong>Pilates:</strong> 2-3 sessions weekly to strengthen core muscles and improve posture.</li>
+                    <li><strong>Dance workouts:</strong> 30-minute sessions of Zumba or similar dance fitness 2-3 times weekly.</li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3><span class="severity-tag severe">Severe</span>Managed Fitness Approach</h3>
+                <ul>
+                    <li><strong>Guided exercise therapy:</strong> Work with a physical therapist or certified trainer experienced with PCOD to develop a safe program.</li>
+                    <li><strong>Water exercises:</strong> Aquatic therapy or water aerobics to reduce joint strain while providing resistance.</li>
+                    <li><strong>Chair yoga:</strong> Modified yoga poses that can be performed seated for those with mobility limitations.</li>
+                    <li><strong>Recumbent biking:</strong> Low-impact cardio that supports back and reduces pressure on joints.</li>
+                    <li><strong>Progressive program:</strong> Starting with 5-10 minutes of activity, gradually increasing by 5 minutes each week as tolerated.</li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3>Specific Yoga Poses for PCOD</h3>
+                <ul>
+                    <li><strong>Butterfly Pose (Baddha Konasana):</strong> Improves blood flow to the pelvic region and supports reproductive organs.</li>
+                    <li><strong>Cobra Pose (Bhujangasana):</strong> Stimulates abdominal organs and may help regulate menstrual flow.</li>
+                    <li><strong>Bridge Pose (Setu Bandhasana):</strong> Stimulates thyroid and may help balance hormones.</li>
+                    <li><strong>Child's Pose (Balasana):</strong> Reduces stress and helps relieve menstrual discomfort.</li>
+                    <li><strong>Seated Forward Bend (Paschimottanasana):</strong> Massages abdominal organs and may help regulate menstruation.</li>
+                </ul>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Exercise Type</th>
+                            <th>Frequency</th>
+                            <th>Duration</th>
+                            <th>Benefits for PCOD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cardio (walking, swimming, cycling)</td>
+                            <td>3-4 days/week</td>
+                            <td>30 minutes</td>
+                            <td>Improves insulin sensitivity, assists weight management</td>
+                        </tr>
+                        <tr>
+                            <td>Strength Training</td>
+                            <td>2-3 days/week</td>
+                            <td>20-30 minutes</td>
+                            <td>Builds muscle mass, boosts metabolism, improves insulin function</td>
+                        </tr>
+                        <tr>
+                            <td>HIIT (High-Intensity Interval Training)</td>
+                            <td>1-2 days/week</td>
+                            <td>15-20 minutes</td>
+                            <td>Maximizes calorie burn, improves metabolic health</td>
+                        </tr>
+                        <tr>
+                            <td>Yoga/Stretching</td>
+                            <td>2-3 days/week</td>
+                            <td>20-30 minutes</td>
+                            <td>Reduces stress, improves hormone balance, eases cramps</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="note">
+                Remember to start slowly if you're new to exercise. Listen to your body and modify activities as needed. Consider working with a fitness professional who has experience with hormonal conditions.
+            </div>
+        </div>
+        
+        <!-- Diet Plan Content -->
+        <div class="content-card" id="dietContent">
+            <h2>Diet Plan for PCOD Management</h2>
+            
+            <div class="info-block">
+                <h3><span class="severity-tag mild">Mild</span>Foundational Nutrition</h3>
+                <ul>
+                    <li><strong>Balanced meals:</strong> Follow a plate method with ½ vegetables, ¼ lean protein, and ¼ complex carbohydrates.</li>
+                    <li><strong>Mindful eating:</strong> Eat slowly, without distractions, to improve digestion and prevent overeating.</li>
+                    <li><strong>Hydration:</strong> Drink 8-10 glasses of water daily, adding lemon or cucumber for flavor if desired.</li>
+                    <li><strong>Sugar reduction:</strong> Gradually reduce added sugars by replacing sweetened beverages with water or herbal teas.</li>
+                    <li><strong>Fiber focus:</strong> Include 25-30g of fiber daily through vegetables, fruits, legumes, and whole grains.</li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3><span class="severity-tag moderate">Moderate</span>Targeted Dietary Strategies</h3>
+                <ul>
+                    <li><strong>Low glycemic diet:</strong> Focus on foods with GI value under 55 to minimize blood sugar spikes.</li>
+                    <li><strong>Anti-inflammatory emphasis:</strong> Incorporate omega-3 rich foods like fatty fish, walnuts, and flaxseeds 3-4 times weekly.</li>
+                    <li><strong>Meal timing:</strong> Eat smaller meals every 3-4 hours to maintain stable blood sugar levels.</li>
+                    <li><strong>Specific supplements:</strong> Consider adding inositol, chromium, or berberine under medical supervision.</li>
+                    <li><strong>Limit dairy and gluten:</strong> Consider a 4-week elimination trial to identify potential inflammatory triggers.</li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3><span class="severity-tag severe">Severe</span>Therapeutic Nutrition Protocols</h3>
+                <ul>
+                    <li><strong>Medically supervised plan:</strong> Work with a registered dietitian specializing in PCOD and metabolic disorders.</li>
+                    <li><strong>Anti-inflammatory protocol:</strong> Strictly limit processed foods, refined carbohydrates, and inflammatory fats.</li>
+                    <li><strong>Specialized testing:</strong> Consider food sensitivity testing to identify specific inflammatory triggers.</li>
+                    <li><strong>Macronutrient adjustment:</strong> Modified carbohydrate intake (typically 30-40% of calories) with emphasis on protein and healthy fats.</li>
+                    <li><strong>Therapeutic foods:</strong> Emphasize specific foods known to support hormone balance like cruciferous vegetables, fermented foods, and specific herbs.</li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3>Foods to Include</h3>
+                <ul>
+                    <li><strong>Lean proteins:</strong> Chicken, turkey, fish, tofu, legumes, and eggs to support hormone production and satiety.</li>
+                    <li><strong>Complex carbohydrates:</strong> Whole grains like quinoa, brown rice, oats, and whole wheat for sustained energy.</li>
+                    <li><strong>Healthy fats:</strong> Avocados, olive oil, nuts, seeds, and fatty fish for hormone regulation and anti-inflammatory effects.</li>
+                    <li><strong>Fiber-rich foods:</strong> Vegetables, fruits, legumes, and whole grains to support digestion and blood sugar control.</li>
+                    <li><strong>Anti-inflammatory spices:</strong> Turmeric, cinnamon, ginger, and garlic for their hormone-balancing properties.</li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3>Foods to Limit or Avoid</h3>
+                <ul>
+                    <li><strong>Refined carbohydrates:</strong> White bread, pasta, rice, and baked goods that spike blood sugar.</li>
+                    <li><strong>Added sugars:</strong> Sodas, candies, desserts, and sweetened beverages that worsen insulin resistance.</li>
+                    <li><strong>Processed foods:</strong> Fast food, packaged snacks, and convenience meals high in unhealthy fats and additives.</li>
+                    <li><strong>Inflammatory foods:</strong> Trans fats, excessive red meat, and deep-fried foods that can promote inflammation.</li>
+                    <li><strong>Caffeine and alcohol:</strong> Limit to moderate amounts as they may affect hormone levels and sleep quality.</li>
+                </ul>
+            </div>
+            
+            <div class="info-block">
+                <h3>Sample Meal Plan</h3>
+                <ul>
+                    <li><strong>Breakfast:</strong> Greek yogurt with berries, cinnamon, and a sprinkle of flaxseeds or steel-cut oats with almond butter and cinnamon.</li>
+                    <li><strong>Lunch:</strong> Large salad with mixed greens, grilled chicken, avocado, olive oil and lemon dressing, with a small portion of quinoa.</li>
+                    <li><strong>Dinner:</strong> Baked salmon with roasted vegetables (broccoli, bell peppers, onions) and a small portion of brown rice.</li>
+                    <li><strong>Snacks:</strong> Apple with almond butter, a handful of nuts and seeds, hummus with vegetable sticks, or Greek yogurt with berries.</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                Hydration is crucial - aim for 8-10 glasses of water daily. Consider tracking your food intake and symptoms to identify personal trigger foods. Always consult with a registered dietitian for personalized nutrition advice.
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const remedialBtn = document.getElementById('remedialBtn');
+            const exerciseBtn = document.getElementById('exerciseBtn');
+            const dietBtn = document.getElementById('dietBtn');
+            
+            const remedialContent = document.getElementById('remedialContent');
+            const exerciseContent = document.getElementById('exerciseContent');
+            const dietContent = document.getElementById('dietContent');
+            
+            // Default view
+            remedialBtn.classList.add('active');
+            remedialContent.classList.add('active');
+            
+            // Button click handlers
+            remedialBtn.addEventListener('click', function() {
+                setActiveButton(remedialBtn);
+                setActiveContent(remedialContent);
+            });
+            
+            exerciseBtn.addEventListener('click', function() {
+                setActiveButton(exerciseBtn);
+                setActiveContent(exerciseContent);
+            });
+            
+            dietBtn.addEventListener('click', function() {
+                setActiveButton(dietBtn);
+                setActiveContent(dietContent);
+            });
+            
+            // Helper functions
+            function setActiveButton(button) {
+                // Remove active class from all buttons
+                remedialBtn.classList.remove('active');
+                exerciseBtn.classList.remove('active');
+                dietBtn.classList.remove('active');
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+            }
+            
+            function setActiveContent(content) {
+                // Hide all content
+                remedialContent.classList.remove('active');
+                exerciseContent.classList.remove('active');
+                dietContent.classList.remove('active');
+                
+                // Show selected content
+                content.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
