@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULSE - Mental Wellness Tips | PCOD Wellness Hub</title>
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --primary-light: #9b59b6;
+            --primary-dark: #7d3c98;
+            --secondary: #e8daef;
+            --accent: #d35400;
+            --text: #333;
+            --light: #f9f9f9;
+            --error: #e74c3c;
+            --success: #2ecc71;
+            --mild: #3498db;
+            --moderate: #f39c12;
+            --severe: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+        
+        .user-menu {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .page-title {
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .page-title:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+        }
+        
+        .intro-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        
+        .assessment-widget {
+            background-color: var(--secondary);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .assessment-widget h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .mood-slider-container {
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+        
+        .mood-slider {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: linear-gradient(to right, var(--mild), var(--moderate), var(--severe));
+            -webkit-appearance: none;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        
+        .mood-slider:hover {
+            opacity: 1;
+        }
+        
+        .mood-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        
+        .mood-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+            border: none;
+        }
+        
+        .mood-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text);
+        }
+        
+        .find-tips-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .find-tips-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .tabs-container {
+            margin-bottom: 40px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: -1px;
+        }
+        
+        .tab {
+            padding: 12px 25px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .tab:hover:not(.active) {
+            background-color: #e9e9e9;
+        }
+        
+        .tab.active {
+            background-color: white;
+            border-bottom: 1px solid white;
+        }
+        
+        .tab-mild {
+            color: var(--mild);
+        }
+        
+        .tab-moderate {
+            color: var(--moderate);
+        }
+        
+        .tab-severe {
+            color: var(--severe);
+        }
+        
+        .tab-content {
+            display: none;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 0 5px 5px 5px;
+            padding: 25px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .tip-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .tip-card h4 {
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        
+        .tip-card p {
+            margin-bottom: 15px;
+        }
+        
+        .try-this {
+            background-color: var(--secondary);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+        
+        .try-this h5 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .emergency-resources {
+            background-color: #fdecea;
+            border-left: 4px solid var(--severe);
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 4px;
+        }
+        
+        .emergency-resources h3 {
+            color: var(--severe);
+            margin-bottom: 15px;
+        }
+        
+        .emergency-resources ul {
+            list-style: none;
+        }
+        
+        .emergency-resources ul li {
+            margin-bottom: 10px;
+        }
+        
+        .emergency-resources ul li strong {
+            margin-right: 5px;
+        }
+        
+        .resources-section {
+            margin-top: 50px;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .resource-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .resource-image {
+            height: 160px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .resource-content {
+            padding: 20px;
+        }
+        
+        .resource-content h4 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .resource-content p {
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .resource-link:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            font-size: 14px;
+            color: #aaa;
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                border-radius: 5px;
+                margin-right: 0;
+                margin-bottom: 5px;
+                border: 1px solid #ddd;
+            }
+            
+            .tab.active {
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .tab-content {
+                border-radius: 5px;
+            }
+            
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">PULSE</div>
+            <nav>
+                <ul>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="track.html">Track Symptoms</a></li>
+                    <li><a href="resources.html">Resources</a></li>
+                    <li><a href="community.html">Community</a></li>
+                    <li class="user-menu">My Account</li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        <h1 class="page-title">Mental Wellness Tips for PCOD</h1>
+        
+        <section class="intro-section">
+            <h2>Your Mental Health Matters</h2>
+            <p>Living with PCOD can affect your mental wellbeing in various ways. Hormonal fluctuations can influence mood, while symptoms like irregular periods and weight changes may impact your self-esteem and overall quality of life. However, there are many effective strategies to support your mental health throughout your PCOD journey.</p>
+            <p>On this page, you'll find evidence-based tips and techniques tailored to different levels of emotional distress. Remember that everyone's experience is unique, and what works for someone else might not work for you. We encourage you to try different approaches and discover what helps you feel your best.</p>
+        </section>
+        
+        <section class="assessment-widget">
+            <h3>How are you feeling today?</h3>
+            <p>Adjust the slider below to indicate your current mental wellbeing level.</p>
+            
+            <div class="mood-slider-container">
+                <input type="range" min="1" max="10" value="5" class="mood-slider" id="moodSlider">
+                <div class="mood-labels">
+                    <span>Mild Distress</span>
+                    <span>Moderate</span>
+                    <span>Severe Distress</span>
+                </div>
+            </div>
+            
+            <button class="find-tips-btn" id="findTipsBtn">Find Helpful Tips</button>
+        </section>
+        
+        <section class="tabs-container">
+            <div class="tabs">
+                <div class="tab tab-mild active" data-tab="mild">Mild Symptoms</div>
+                <div class="tab tab-moderate" data-tab="moderate">Moderate Symptoms</div>
+                <div class="tab tab-severe" data-tab="severe">Severe Symptoms</div>
+            </div>
+            
+            <div id="mildContent" class="tab-content active">
+                <h3>Managing Mild Mental Health Symptoms</h3>
+                <p>These strategies can help when you're experiencing mild stress, occasional low mood, or minor anxiety related to PCOD.</p>
+                
+                <div class="tip-card">
+                    <h4>Mindful Movement</h4>
+                    <p>Gentle exercise like yoga, walking, or swimming can help regulate hormones and boost mood-enhancing endorphins. Research shows that regular, moderate exercise can help manage PCOD symptoms while improving mental wellbeing.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Start with a 10-minute daily walk in nature, gradually increasing to 30 minutes 3-5 times weekly. Focus on how your body feels rather than calorie-burning or weight loss.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Nutrition for Mood</h4>
+                    <p>What you eat can significantly impact your hormones and mood. Anti-inflammatory foods can help manage PCOD symptoms while supporting mental health.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Include more omega-3 rich foods (fatty fish, flaxseeds, walnuts), colorful vegetables, and fiber-rich foods. Reduce processed foods, excess sugar, and inflammatory oils. Keep a food-mood journal to identify connections between what you eat and how you feel.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Sleep Hygiene</h4>
+                    <p>Quality sleep is crucial for hormone regulation and mental wellbeing. Many women with PCOD experience sleep disturbances that can worsen mood issues.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Create a consistent sleep schedule, even on weekends. Turn off electronic devices 1 hour before bed. Keep your bedroom cool, dark, and quiet. Try a relaxing bedtime ritual like gentle stretching, reading, or a warm bath with lavender essential oil.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Positive Self-Talk</h4>
+                    <p>The way you speak to yourself impacts your emotions and stress levels. Negative self-talk about body image or fertility can amplify distress related to PCOD.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Notice negative thought patterns and gently challenge them. Practice daily affirmations that focus on your strength and resilience. Try phrases like "My body is doing its best" or "I am more than my symptoms."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="moderateContent" class="tab-content">
+                <h3>Managing Moderate Mental Health Symptoms</h3>
+                <p>These approaches can help when you're experiencing ongoing stress, persistent low mood, or regular anxiety that affects your daily functioning.</p>
+                
+                <div class="tip-card">
+                    <h4>Deep Breathing & Relaxation Techniques</h4>
+                    <p>Stress activates your sympathetic nervous system, which can worsen hormonal imbalances. Relaxation techniques can help activate your parasympathetic "rest and digest" system.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Practice diaphragmatic breathing: Inhale through your nose for 4 counts, filling your belly with air. Hold for 1-2 counts, then exhale slowly through your mouth for 6 counts. Repeat for 5 minutes, 2-3 times daily, especially during moments of stress or anxiety.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Journaling for Emotional Processing</h4>
+                    <p>Expressing thoughts and emotions through writing can help process difficult feelings and identify patterns in your moods and symptoms.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Set aside 10 minutes daily to write freely about your emotions, concerns, and experiences with PCOD. Consider using prompts like "Today I felt..." or "I'm struggling with..." followed by "What would help me is..." This can help move from identification to solution-finding.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Boundary Setting</h4>
+                    <p>Managing a chronic condition like PCOD requires energy and self-care. Setting healthy boundaries with others helps preserve your emotional resources.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Practice saying no to non-essential commitments that drain your energy. Prepare responses to insensitive comments about weight, fertility, or appearance. Communicate your needs clearly to friends and family: "I need to rest today" or "I'd prefer not to discuss my treatment right now."</p>
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Community & Connection</h4>
+                    <p>Social isolation can worsen mental health symptoms. Connecting with others who understand PCOD can provide validation and practical support.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Join a PCOD support group (in-person or online). Share your experiences with trusted friends or family members. Consider volunteering for a cause you care about, which can provide perspective and connection. Try our community forum here on PULSE to connect with women facing similar challenges.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="severeContent" class="tab-content">
+                <h3>Managing Severe Mental Health Symptoms</h3>
+                <p>If you're experiencing persistent depression, debilitating anxiety, thoughts of self-harm, or inability to function in daily life, please seek professional help immediately. These strategies can complement professional treatment.</p>
+                
+                <div class="emergency-resources">
+                    <h3>Immediate Support Resources</h3>
+                    <ul>
+                        <li><strong>National Suicide Prevention Lifeline:</strong> 988 or 1-800-273-8255 (24/7)</li>
+                        <li><strong>Crisis Text Line:</strong> Text HOME to 741741 (24/7)</li>
+                        <li><strong>Emergency Services:</strong> Call 911 if you're in immediate danger</li>
+                        <li><strong>Find a Therapist:</strong> <a href="https://www.psychologytoday.com/us/therapists" target="_blank">Psychology Today Directory</a></li>
+                    </ul>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Professional Support</h4>
+                    <p>Severe mental health symptoms require professional intervention. Many therapists specialize in chronic health conditions and can provide tools to manage PCOD-related distress.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Seek a therapist experienced in health psychology, women's health issues, or chronic conditions. Consider cognitive-behavioral therapy (CBT), which is effective for both depression and anxiety. If you're experiencing significant depression or anxiety, consult with a psychiatrist about medication options that won't interfere with PCOD management.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Crisis Management Plan</h4>
+                    <p>Having a structured plan can help when you're experiencing severe emotional distress and having difficulty coping.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Create a written emergency plan that includes:</p>
+                        <ul>
+                            <li>Contact information for your therapist, doctor, and a trusted friend/family member</li>
+                            <li>Coping strategies that have helped in the past</li>
+                            <li>A list of activities that bring comfort (e.g., specific music, shows, breathing exercises)</li>
+                            <li>Reminders of your reasons for hope and perseverance</li>
+                            <li>Crisis hotline numbers</li>
+                        </ul>
+                        <p>Keep this plan accessible on your phone and share it with a trusted person.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Structured Self-Care</h4>
+                    <p>When severely distressed, basic self-care often suffers, which can create a negative cycle that worsens both mental health and PCOD symptoms.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Create a minimal daily self-care checklist with small, manageable tasks:</p>
+                        <ul>
+                            <li>Drink 8 glasses of water</li>
+                            <li>Eat three meals, regardless of appetite</li>
+                            <li>Take prescribed medications</li>
+                            <li>Spend 10 minutes outdoors</li>
+                            <li>Move your body gently for 5 minutes</li>
+                            <li>Connect with one supportive person</li>
+                        </ul>
+                        <p>Focus on consistency rather than perfection. Celebrate completing even one item when you're struggling.</p>
+                    </div>
+                </div>
+                
+                <div class="tip-card">
+                    <h4>Distress Tolerance Skills</h4>
+                    <p>Dialectical Behavior Therapy (DBT) offers effective techniques for managing overwhelming emotions in the moment.</p>
+                    <div class="try-this">
+                        <h5>Try This:</h5>
+                        <p>Try the TIPP technique when emotions feel overwhelming:</p>
+                        <ul>
+                            <li><strong>Temperature change:</strong> Splash cold water on your face or hold an ice pack to your cheeks</li>
+                            <li><strong>Intense exercise:</strong> Do jumping jacks or run in place for 1 minute</li>
+                            <li><strong>Paced breathing:</strong> Slow your breathing to 5-6 breaths per minute</li>
+                            <li><strong>Progressive muscle relaxation:</strong> Tense and release each muscle group sequentially</li>
+                        </ul>
+                        <p>These physical interventions can interrupt the emotional escalation cycle and help you regain control.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="resources-section">
+            <h2>Additional Resources</h2>
