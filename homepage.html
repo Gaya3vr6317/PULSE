@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PULSE - PCOD Wellness Hub</title>
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --primary-light: #9b59b6;
+            --primary-dark: #7d3c98;
+            --secondary: #e8daef;
+            --accent: #d35400;
+            --text: #333;
+            --text-light: #777;
+            --light: #f9f9f9;
+            --white: #ffffff;
+            --error: #e74c3c;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+        }
+        
+        .login-btn, .signup-btn {
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn {
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            margin-right: 10px;
+        }
+        
+        .login-btn:hover {
+            background-color: var(--primary-light);
+            color: var(--white);
+        }
+        
+        .signup-btn {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .signup-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 160px 5% 100px;
+            color: var(--white);
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+        }
+        
+        .features {
+            padding: 80px 5%;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 60px;
+        }
+        
+        .feature-cards {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+        }
+        
+        .tracker-icon {
+            color: #e67e22;
+        }
+        
+        .mental-icon {
+            color: #3498db;
+        }
+        
+        .resources-icon {
+            color: #2ecc71;
+        }
+        
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+        
+        .feature-card p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+        
+        .feature-btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .feature-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .about {
+            padding: 80px 5%;
+            background-color: var(--secondary);
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 40px;
+        }
+        
+        .about-text h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonials {
+            padding: 80px 5%;
+            text-align: center;
+        }
+        
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+        
+        .testimonial-slide {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 20px;
+        }
+        
+        .testimonial-slide.active {
+            opacity: 1;
+        }
+        
+        .testimonial-quote {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+        
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .slider-dot.active {
+            background-color: var(--primary);
+        }
+        
+        .cta-section {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            text-align: center;
+            color: var(--white);
+        }
+        
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .cta-section h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        footer {
+            background-color: var(--text);
+            color: var(--white);
+            padding: 50px 5% 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+            color: var(--light);
+            opacity: 0.7;
+        }
+        
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .modal-backdrop.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal {
+            background-color: var(--white);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .modal-backdrop.active .modal {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            color: var(--primary);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-cancel {
+            background: none;
+            border: 1px solid #ddd;
+            color: var(--text-light);
+            margin-right: 10px;
+        }
+        
+        .modal-proceed {
+            background-color: var(--primary);
+            border: none;
+            color: var(--white);
+        }
+        
+        @media (max-width: 992px) {
+            .about-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links, .auth-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-text, .about-image {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">PULSE</a>
+            
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <a href="login.html" class="login-btn">Log In</a>
+                <a href="signup.html" class="signup-btn">Sign Up</a>
+            </div>
+            
+            <div class="mobile-menu-btn">&#9776;</div>
+        </nav>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Take Control of Your PCOD Journey</h1>
+            <p>PULSE is a comprehensive wellness hub that empowers women with PCOD through symptom tracking, mental health support, and expert-verified resources.</p>
+            <a href="signup.html" class="cta-button">Join PULSE Today</a>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <h2 class="section-title">Our Core Features</h2>
+        <p class="section-subtitle">PULSE offers a holistic approach to managing PCOD with these powerful tools designed specifically for your needs.</p>
+        
+        <div class="feature-cards">
+            <!-- PCOD Symptom Tracker Card -->
+            <div class="feature-card">
+                <div class="feature-icon tracker-icon">📊</div>
+                <h3>PCOD Symptom Tracker</h3>
+                <p>Monitor your cycles, symptoms, and hormonal changes with our intuitive tracking system. Identify patterns and gain insights to better manage your condition.</p>
+                <button class="feature-btn" id="trackerBtn">Track Symptoms</button>
+            </div>
+            
+            <!-- Mental Health Assessment Card -->
+            <div class="feature-card">
+                <div class="feature-icon mental-icon">🧠</div>
+                <h3>Mental Health Assessment</h3>
+                <p>Take validated self-assessments to understand your mental wellbeing. Get personalized coping strategies and resources to support your emotional health.</p>
+                <button class="feature-btn" id="mentalHealthBtn">Take Assessment</button>
+            </div>
+            
+            <!-- Resources Card -->
+            <div class="feature-card">
+                <div class="feature-icon resources-icon">📚</div>
+                <h3>Expert Resources</h3>
+                <p>Access our library of expert-verified resources on PCOD, reproductive health, and wellness. Stay informed with the latest research and practical advice.</p>
+                <button class="feature-btn" id="resourcesBtn">Browse Resources</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About PULSE</h2>
+                <p>PULSE was created to address the critical gap in accessible, reliable, and personalized health resources for women with PCOD. We understand the complex challenges you face—from irregular periods and hormonal imbalances to weight management issues and mental health concerns.</p>
+                <p>Our platform brings together symptom tracking, mental health support, and expert-verified education in one user-friendly interface. We're committed to empowering you with knowledge, self-care tools, and access to expert consultations.</p>
+                <p>With PULSE, you're not alone on your PCOD journey. Join our community of women who are taking control of their health and wellness.</p>
+            </div>
+            <div class="about-image">
+                <img src="/api/placeholder/500/400" alt="Women discussing health">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <h2 class="section-title">What Our Users Say</h2>
+        <div class="testimonial-slider">
+            <div class="testimonial-slide active">
+                <p class="testimonial-quote">"PULSE has completely transformed how I manage my PCOD. The symptom tracker helps me identify patterns I never noticed before, and the mental health resources have been invaluable for dealing with the emotional aspects of this condition."</p>
+                <p class="testimonial-author">- Priya S.</p>
+            </div>
+            <div class="testimonial-slide">
+                <p class="testimonial-quote">"After years of feeling lost and overwhelmed with contradicting information, I finally found a reliable resource in PULSE. The expert-verified content has helped me make informed decisions about my health."</p>
+                <p class="testimonial-author">- Maya R.</p>
+            </div>
+            <div class="testimonial-slide">
+                <p class="testimonial-quote">"The mental health assessment tool helped me recognize my anxiety related to PCOD and guided me toward effective coping strategies. I feel empowered and more in control of both my physical and emotional health."</p>
+                <p class="testimonial-author">- Anjali T.</p>
+            </div>
+        </div>
+        <div class="slider-dots">
+            <div class="slider-dot active" data-index="0"></div>
+            <div class="slider-dot" data-index="1"></div>
+            <div class="slider-dot" data-index="2"></div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="cta-content">
+            <h2>Start Your Wellness Journey Today</h2>
+            <p>Join thousands of women who are taking control of their PCOD journey with PULSE. Sign up now for free access to our comprehensive wellness tools.</p>
+            <a href="signup.html" class="cta-button">Create Your Account</a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>PULSE</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">Medical Advisory Board</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Features</h3>
+                <ul class="footer-links">
+                    <li><a href="#">PCOD Symptom Tracker</a></li>
+                    <li><a href="#">Mental Health Assessment</a></li>
+                    <li><a href="#">Expert Resources</a></li>
+                    <li><a href="#">Community Forums</a></li>
+                    <li><a href="#">Expert Consultations</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Data Protection</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 PULSE PCOD Wellness Hub. All rights reserved.
+        </div>
+    </footer>
+    
+    <!-- Feature Modals -->
+    <!-- PCOD Tracker Modal -->
+    <div class="modal-backdrop" id="trackerModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">PCOD Symptom Tracker</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Our comprehensive symptom tracker helps you monitor:</p>
+                <ul>
+                    <li>Menstrual cycle patterns</li>
+                    <li>Hormonal symptoms such as acne and hair growth</li>
+                    <li>Mood changes</li>
+                    <li>Physical symptoms like bloating and pain</li>
+                    <li>Weight fluctuations</li>
+                </ul>
+                <p>By tracking these symptoms regularly, you'll identify patterns that can help you and your healthcare provider manage your PCOD more effectively.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-cancel">Close</button>
+                <button class="modal-btn modal-proceed">Get Started</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mental Health Modal -->
+    <div class="modal-backdrop" id="mentalHealthModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Mental Health Assessment</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Our mental health assessment tools include:</p>
+                <ul>
+                    <li>Validated anxiety and depression screening tools</li>
+                    <li>Stress level evaluations</li>
