@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCOD Symptom Tracker</title>
+    <style>
+        :root {
+            --primary: #8e44ad;
+            --primary-light: #9b59b6;
+            --secondary: #3498db;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        
+        .subtitle {
+            font-weight: normal;
+            margin-top: 0.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .symptom-section {
+            margin-bottom: 2rem;
+        }
+        
+        .symptom-group {
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            color: var(--dark);
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 0.5rem;
+        }
+        
+        h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .radio-group, .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        input[type="radio"], input[type="checkbox"] {
+            margin: 0;
+        }
+        
+        .severity-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .severity-option {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .severity-option input {
+            margin-bottom: 0.5rem;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .btn-submit {
+            background-color: var(--success);
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            display: block;
+            margin: 2rem auto;
+        }
+        
+        .btn-submit:hover {
+            background-color: #27ae60;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .alert-success {
+            background-color: #d5f5e3;
+            color: #1e8449;
+            border: 1px solid #2ecc71;
+        }
+        
+        .alert-warning {
+            background-color: #fef5e7;
+            color: #9a7d0a;
+            border: 1px solid #f39c12;
+        }
+        
+        .alert-info {
+            background-color: #d6eaf8;
+            color: #2874a6;
+            border: 1px solid #3498db;
+        }
+        
+        .result-section {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .result-title {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .score-display {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .score-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+        }
+        
+        .recommendation {
+            padding: 1rem;
+            border-left: 4px solid var(--secondary);
+            background-color: #edf7fd;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 600px) {
+            .severity-scale {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .severity-option {
+                display: flex;
+                align-items: center;
+                margin-bottom: 0.5rem;
+            }
+            
+            .severity-option input {
+                margin-right: 0.5rem;
+                margin-bottom: 0;
+            }
+            
+            .radio-group, .checkbox-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>PCOD Symptom Tracker</h1>
+            <p class="subtitle">Monitor your symptoms and get personalized insights</p>
+        </header>
+        
+        <div class="alert alert-info" id="infoAlert">
+            This tracker is designed to help monitor PCOD symptoms over time. It is not a diagnostic tool. Please consult with a healthcare provider for proper diagnosis and treatment.
+        </div>
+        
+        <div class="card">
+            <h2>Track Your Symptoms</h2>
+            <p>Record your symptoms to monitor patterns and changes over time. This information can help you and your healthcare provider make informed decisions about your health.</p>
+            
+            <form id="symptomTrackerForm">
+                <div class="symptom-section">
+                    <div class="form-group">
+                        <label for="trackingDate">Date:</label>
+                        <input type="date" id="trackingDate" name="trackingDate" required>
+                    </div>
+                    
+                    <div class="symptom-group">
+                        <h3>Menstrual Cycle</h3>
+                        
+                        <div class="form-group">
+                            <label>Current menstrual status:</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="menstrual-active" name="menstrualStatus" value="active">
+                                    <label for="menstrual-active">Having period</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="menstrual-not" name="menstrualStatus" value="not">
+                                    <label for="menstrual-not">Not having period</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lastPeriod">Date of last period start:</label>
+                            <input type="date" id="lastPeriod" name="lastPeriod">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>How would you describe your periods?</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="period-regular" name="periodRegularity" value="regular">
+                                    <label for="period-regular">Regular (predictable cycle)</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="period-irregular" name="periodRegularity" value="irregular">
+                                    <label for="period-irregular">Irregular (unpredictable cycle)</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="period-absent" name="periodRegularity" value="absent">
+                                    <label for="period-absent">Absent (no periods for 3+ months)</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cycleLength">Average cycle length (days):</label>
+                            <input type="number" id="cycleLength" name="cycleLength" min="1" max="180">
+                        </div>
+                    </div>
+                    
+                    <div class="symptom-group">
+                        <h3>Physical Symptoms</h3>
+                        
+                        <div class="form-group">
+                            <label>Which symptoms are you experiencing today? (Select all that apply)</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="symptom-acne" name="symptoms" value="acne">
+                                    <label for="symptom-acne">Acne</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="symptom-hairLoss" name="symptoms" value="hairLoss">
+                                    <label for="symptom-hairLoss">Hair loss/thinning</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="symptom-excessHair" name="symptoms" value="excessHair">
+                                    <label for="symptom-excessHair">Excess hair growth</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="symptom-weightGain" name="symptoms" value="weightGain">
+                                    <label for="symptom-weightGain">Weight gain</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="symptom-pelvicPain" name="symptoms" value="pelvicPain">
+                                    <label for="symptom-pelvicPain">Pelvic pain</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="symptom-fatigue" name="symptoms" value="fatigue">
+                                    <label for="symptom-fatigue">Fatigue</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="symptom-headaches" name="symptoms" value="headaches">
+                                    <label for="symptom-headaches">Headaches</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="symptom-darkening" name="symptoms" value="darkening">
+                                    <label for="symptom-darkening">Skin darkening</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="symptom-skinTags" name="symptoms" value="skinTags">
+                                    <label for="symptom-skinTags">Skin tags</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Rate your pain level (if any):</label>
+                            <div class="severity-scale">
+                                <div class="severity-option">
+                                    <input type="radio" id="pain-0" name="painLevel" value="0">
+                                    <label for="pain-0">0<br>None</label>
+                                </div>
+                                <div class="severity-option">
+                                    <input type="radio" id="pain-1" name="painLevel" value="1">
+                                    <label for="pain-1">1</label>
+                                </div>
+                                <div class="severity-option">
+                                    <input type="radio" id="pain-2" name="painLevel" value="2">
+                                    <label for="pain-2">2</label>
+                                </div>
+                                <div class="severity-option">
+                                    <input type="radio" id="pain-3" name="painLevel" value="3">
+                                    <label for="pain-3">3<br>Moderate</label>
+                                </div>
+                                <div class="severity-option">
+                                    <input type="radio" id="pain-4" name="painLevel" value="4">
+                                    <label for="pain-4">4</label>
+                                </div>
+                                <div class="severity-option">
+                                    <input type="radio" id="pain-5" name="painLevel" value="5">
+                                    <label for="pain-5">5<br>Severe</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="symptom-group">
+                        <h3>Mood & Mental Health</h3>
+                        
+                        <div class="form-group">
+                            <label>How would you rate your mood today?</label>
+                            <div class="severity-scale">
+                                <div class="severity-option">
+                                    <input type="radio" id="mood-1" name="moodRating" value="1">
+                                    <label for="mood-1">1<br>Very Low</label>
+                                </div>
+                                <div class="severity-option">
+                                    <input type="radio" id="mood-2" name="moodRating" value="2">
+                                    <label for="mood-2">2</label>
+                                </div>
+                                <div class="severity-option">
+                                    <input type="radio" id="mood-3" name="moodRating" value="3">
+                                    <label for="mood-3">3<br>Neutral</label>
+                                </div>
+                                <div class="severity-option">
+                                    <input type="radio" id="mood-4" name="moodRating" value="4">
+                                    <label for="mood-4">4</label>
+                                </div>
+                                <div class="severity-option">
+                                    <input type="radio" id="mood-5" name="moodRating" value="5">
+                                    <label for="mood-5">5<br>Very Good</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Are you experiencing any of the following? (Select all that apply)</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="mood-anxiety" name="moodSymptoms" value="anxiety">
+                                    <label for="mood-anxiety">Anxiety</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="mood-depression" name="moodSymptoms" value="depression">
+                                    <label for="mood-depression">Depression or low mood</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="mood-irritability" name="moodSymptoms" value="irritability">
+                                    <label for="mood-irritability">Irritability</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="mood-moodSwings" name="moodSymptoms" value="moodSwings">
+                                    <label for="mood-moodSwings">Mood swings</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="mood-stress" name="moodSymptoms" value="stress">
+                                    <label for="mood-stress">High stress</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="mood-insomnia" name="moodSymptoms" value="insomnia">
+                                    <label for="mood-insomnia">Sleep issues</label>
+                                </div>
+                                <div class="checkbox-option">
+                                    <input type="checkbox" id="mood-concentration" name="moodSymptoms" value="concentration">
+                                    <label for="mood-concentration">Concentration problems</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="symptom-group">
+                        <h3>Lifestyle Factors</h3>
+                        
+                        <div class="form-group">
+                            <label for="sleepHours">Hours of sleep last night:</label>
+                            <input type="number" id="sleepHours" name="sleepHours" min="0" max="24" step="0.5">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stressLevel">Stress level today:</label>
+                            <select id="stressLevel" name="stressLevel">
+                                <option value="">Select an option</option>
+                                <option value="low">Low</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="high">High</option>
+                                <option value="very-high">Very high</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Physical activity today:</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="activity-none" name="activityLevel" value="none">
+                                    <label for="activity-none">None</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="activity-light" name="activityLevel" value="light">
+                                    <label for="activity-light">Light (walking, stretching)</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="activity-moderate" name="activityLevel" value="moderate">
+                                    <label for="activity-moderate">Moderate (brisk walking, yoga)</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="activity-intense" name="activityLevel" value="intense">
+                                    <label for="activity-intense">Intense (running, HIIT, strength training)</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Diet quality today:</label>
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="diet-poor" name="dietQuality" value="poor">
+                                    <label for="diet-poor">Poor (mostly processed foods)</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="diet-fair" name="dietQuality" value="fair">
+                                    <label for="diet-fair">Fair (mix of healthy and processed)</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="diet-good" name="dietQuality" value="good">
+                                    <label for="diet-good">Good (mostly whole foods)</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="diet-excellent" name="dietQuality" value="excellent">
+                                    <label for="diet-excellent">Excellent (balanced, whole foods)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="additionalNotes">Additional notes:</label>
+                        <textarea id="additionalNotes" name="additionalNotes" rows="4" placeholder="Any other symptoms or observations you'd like to record..."></textarea>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn-submit">Analyze Symptoms</button>
+            </form>
+        </div>
+        
+        <div class="result-section" id="resultSection">
+            <h2 class="result-title">Symptom Analysis Results</h2>
+            
+            <div class="score-display">
+                <span>Your PCOD symptom score:</span>
+                <span class="score-number" id="scoreDisplay">0</span>
+                <span id="scoreDescription">Low symptom activity</span>
+            </div>
+            
+            <div class="recommendation" id="recommendationArea">
+                <h3>Recommendations:</h3>
+                <ul id="recommendationList">
+                    <!-- Recommendations will be inserted here -->
+                </ul>
+            </div>
+            
+            <p>Remember: This symptom tracker is not a diagnostic tool. It's designed to help you monitor patterns in your symptoms over time. Always consult with a healthcare provider for proper medical advice and treatment.</p>
+            
+            <button id="printButton" class="btn-submit">Print or Save Results</button>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set today as default date
+            const today = new Date().toISOString().substr(0, 10);
+            document.getElementById('trackingDate').value = today;
+            
+            // Show info alert
+            document.getElementById('infoAlert').style.display = 'block';
+            
+            // Handle form submission
+            document.getElementById('symptomTrackerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                analyzeSymptoms();
+            });
+            
+            // Print button functionality
+            document.getElementById('printButton').addEventListener('click', function() {
+                window.print();
+            });
+        });
+        
+        function analyzeSymptoms() {
+            // Calculate PCOD symptom score based on form inputs
+            let score = 0;
+            let recommendations = [];
+            
+            // Period regularity scoring
+            const periodRegularity = document.querySelector('input[name="periodRegularity"]:checked');
+            if (periodRegularity) {
+                if (periodRegularity.value === 'irregular') {
+                    score += 5;
+                    recommendations.push("Consider tracking your cycle with a period tracker app for better prediction.");
+                } else if (periodRegularity.value === 'absent') {
+                    score += 10;
+                    recommendations.push("Consult with a gynecologist about your absent periods as soon as possible.");
+                }
+            }
+            
+            // Physical symptoms scoring
+            const symptoms = document.querySelectorAll('input[name="symptoms"]:checked');
+            if (symptoms.length > 0) {
+                score += symptoms.length * 2;
+                
+                // Check for specific symptoms
+                for (let symptom of symptoms) {
+                    if (symptom.value === 'acne') {
+                        recommendations.push("For acne, consider a gentle skincare routine with non-comedogenic products.");
+                    }
+                    if (symptom.value === 'hairLoss' || symptom.value === 'excessHair') {
+                        recommendations.push("Hair-related symptoms may benefit from hormonal evaluation by an endocrinologist.");
+                    }
+                    if (symptom.value === 'weightGain') {
+                        recommendations.push("Regular exercise (30 min/day) and a low-glycemic diet may help manage weight with PCOD.");
+                    }
+                }
+            }
+            
+            // Pain level scoring
+            const painLevel = document.querySelector('input[name="painLevel"]:checked');
+            if (painLevel) {
+                const painValue = parseInt(painLevel.value);
+                score += painValue * 2;
+                
+                if (painValue >= 3) {
+                    recommendations.push("For moderate to severe pain, consider heat therapy, gentle yoga, and consult your doctor about pain management options.");
+                }
+            }
+            
+            // Mood symptoms scoring
+            const moodSymptoms = document.querySelectorAll('input[name="moodSymptoms"]:checked');
+            if (moodSymptoms.length > 0) {
+                score += moodSymptoms.length * 1.5;
+                
+                if (moodSymptoms.length >= 3) {
+                    recommendations.push("Your mood symptoms suggest you may benefit from stress-reduction techniques like meditation or speaking with a mental health professional.");
+                }
+            }
+            
+            // Lifestyle factors scoring and recommendations
+            const sleepHours = document.getElementById('sleepHours').value;
+            if (sleepHours) {
+                if (sleepHours < 6) {
+                    score += 2;
+                    recommendations.push("Try to get 7-8 hours of sleep each night to help regulate hormones.");
+                }
+            }
+            
+            const stressLevel = document.getElementById('stressLevel').value;
+            if (stressLevel === 'high' || stressLevel === 'very-high') {
+                score += 3;
+                recommendations.push("High stress can worsen PCOD symptoms. Consider stress management techniques like deep breathing, meditation, or yoga.");
+            }
+            
+            const activityLevel = document.querySelector('input[name="activityLevel"]:checked');
+            if (activityLevel && activityLevel.value === 'none') {
+                score += 2;
+                recommendations.push("Regular physical activity (at least 150 minutes per week) can help improve insulin sensitivity and reduce PCOD symptoms.");
+            }
+            
+            const dietQuality = document.querySelector('input[name="dietQuality"]:checked');
+            if (dietQuality && (dietQuality.value === 'poor' || dietQuality.value === 'fair')) {
+                score += 2;
+                recommendations.push("Consider a diet rich in whole grains, lean proteins, and plenty of vegetables. Limit processed foods and added sugars.");
+            }
+            
+            // Add general recommendations if few specific ones
+            if (recommendations.length < 3) {
+                recommendations.push("Stay hydrated by drinking at least 8 glasses of water daily.");
+                recommendations.push("Consider supplements like inositol, vitamin D, and omega-3 fatty acids after consulting with your doctor.");
+            }
+            
+            // Limit to maximum 5 recommendations
+            if (recommendations.length > 5) {
+                recommendations = recommendations.slice(0, 5);
+            }
+            
+            // Display results
+            document.getElementById('scoreDisplay').textContent = score.toFixed(1);
+            
+            // Set score description
+            let scoreDescription = "";
+            if (score < 10) {
+                scoreDescription = "Low symptom activity";
+            } else if (score < 20) {
+                scoreDescription = "Moderate symptom activity";
+            } else {
+                scoreDescription = "High symptom activity";
+            }
+            document.getElementById('scoreDescription').textContent = scoreDescription;
+            
+            // Populate recommendations
+            const recommendationList = document.getElementById('recommendationList');
+            recommendationList.innerHTML = '';
+            for (let rec of recommendations) {
+                const li = document.createElement('li');
+                li.textContent = rec;
+                recommendationList.appendChild(li);
+            }
+            
+            // Show results section
+            document.getElementById('resultSection').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
